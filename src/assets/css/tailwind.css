@@ -4,6 +4,11 @@
 
 @tailwind utilities;
 
+body, html {
+    @apply bg-ym-light-black;
+}
+
+/* YziMusic Input */
 .input {
     @apply mt-2 bg-ym-black rounded-lg py-2 px-4 block w-full appearance-none leading-normal text-white;
     font-weight: 500;
@@ -13,8 +18,14 @@
     @apply outline-none shadow-outline;
 }
 .input::placeholder {
-    @apply text-ym-grey;
+    color: rgba(255, 255, 255, .25);
 }
+
+/* YziMusic label */
+.label {
+    @apply text-white font-bold uppercase text-sm;
+}
+
 
 .checkbox {
     @apply rounded mr-2 form-checkbox h-5 w-5 text-main;

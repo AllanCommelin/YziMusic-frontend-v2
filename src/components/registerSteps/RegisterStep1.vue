@@ -1,17 +1,26 @@
 <template>
     <div>
-        <h2 class="text-3xl mb-6 font-bold text-white">Vos informations</h2>
-        <div class="flex flex-wrap text-ym-grey">
-            <div class="grid gap-4 grid-cols-2 w-full">
-                <input class="input" v-model="firstname" name="firstname" required placeholder="Prénom"/>
-                <input class="input" v-model="lastname" name="lastname" required placeholder="Nom"/>
+        <h1 class="text-3xl my-4 font-bold text-white font-black">Vos informations</h1>
+        <div class="flex flex-wrap justify-between text-ym-grey">
+            <div class="sm:w-1/2 w-full sm:pr-2 text-left my-2">
+                <label class="label" for="firstname">Prénom</label>
+                <input id="firstname" class="input" v-model="firstname" name="firstname" required placeholder="John"/>
             </div>
-            <div class="w-full my-6">
-                <input v-model="email" class="input" required name="email" type="email" placeholder="exemple@gmail.com"/>
+            <div class="sm:w-1/2 w-full sm:pl-2 text-left my-2">
+                <label class="label" for="lastname">Nom</label>
+                <input id="lastname" class="input" v-model="lastname" name="lastname" required placeholder="Doe"/>
             </div>
-            <div class="grid gap-4 grid-cols-2 w-full">
-                <input class="input" v-model="username" required name="username" placeholder="Pseudo"/>
-                <input class="input" v-model="password" required name="password" type="password"/>
+            <div class="w-full text-left my-2">
+                <label class="label" for="email">Adresse mail</label>
+                <input id="email" v-model="email" class="input" required name="email" type="email" placeholder="JohnDoe@gmail.com"/>
+            </div>
+            <div class="sm:w-1/2 w-full sm:pr-2 text-left my-2">
+                <label class="label" for="username">Pseudo</label>
+                <input id="username" class="input" v-model="username" required name="username" placeholder="Jdoe"/>
+            </div>
+            <div class="sm:w-1/2 w-full sm:pl-2 text-left my-2">
+                <label class="label" for="password">Mot de passe</label>
+                <input id="password" class="input" v-model="password" required name="password" type="password" placeholder="Minimum 8 caractères"/>
             </div>
             <div class="mt-10 w-full flex justify-center">
                 <button class="btn-yzi" :disabled="!isFullFilled" v-on:click="next()">Suivant</button>
@@ -45,6 +54,7 @@
                     && this.email !== ''
                     && this.username !== ''
                     && this.password !== ''
+                    && this.password.length > 7
             }
         },
         created () {

@@ -30,13 +30,13 @@
         </div>
         <div class="mt-10 w-full flex justify-center">
             <button class="btn-yzi" v-on:click="previous()">Retour</button>
-            <button class="btn-yzi" v-on:click="next()">Suivant</button>
+            <button class="btn-yzi" v-on:click="next()">S'inscrire</button>
         </div>
     </div>
 </template>
 
 <script>
-    import { mapState } from 'vuex'
+    import { mapState, mapActions } from 'vuex'
 
     export default {
         name: "RegisterStep3",
@@ -69,6 +69,9 @@
             this.soundcloudLink = this.user.soundcloudLink ? this.user.soundcloudLink :''
         },
         methods: {
+            ...mapActions({
+                registerUser: 'User/registerUser'
+            }),
             next () {
                 this.$store.dispatch('User/SET_USER_FIELD', {
                     facebookLink: this.facebookLink,
@@ -80,7 +83,8 @@
                     appleMusicLink: this.appleMusicLink,
                     soundcloudLink: this.soundcloudLink,
                 })
-                this.$emit('increment')
+                this.registerUser()
+                //this.$emit('increment')
             },
             previous() {
                 this.$emit('decrement')

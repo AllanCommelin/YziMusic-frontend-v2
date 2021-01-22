@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import userApi from '@/api/user'
+//import userApi from '@/api/user'
 
 const state = {
     user: {
@@ -38,8 +38,6 @@ const mutations = {
     },
     setUserField (state, payload) {
       Object.keys(payload).forEach(field => {
-          console.log('field ', field)
-          console.log('value ', payload[field])
           state.user[field] = payload[field]
       })
     },
@@ -75,13 +73,13 @@ const actions = {
         store.commit('initError')
         if(!store.state.pendingUser) {
             store.commit('setPendingUserTrue')
-            Vue.prototype.$http.post('http://localhost:3000/login', {
+            Vue.prototype.$http.post('http://localhost:6985/auth/login', {
                 email: email,
                 password: password
             })
-                .then(response => {
-                    localStorage.setItem('token', response.data.accessToken)
-                    userApi.verifyUser()
+                .then(res => {
+                    //TODO: set data and redirect to home screen
+                    console.log(`User ${res.data.user.username} is register. Go to home`)
                 })
                 .catch(() => {
                     store.dispatch('errorUser')
@@ -94,17 +92,13 @@ const actions = {
         store.commit('setUser', {})
         store.commit('setIsLogInFalse')
     },
-    registerUser: function (store, {email, password}) {
+    registerUser: function (store) {
         store.commit('initError')
         if (!store.state.pendingUser) {
-            Vue.prototype.$http.post('http://localhost:3000/register', {
-                email: email,
-                password: password,
-                role: 'user'
-            })
+            Vue.prototype.$http.post('http://localhost:6985/auth/register', store.state.user)
                 .then(res => {
-                    localStorage.setItem('token', res.data.accessToken)
-                    userApi.verifyUser()
+                    //TODO: redirect to login screen with alert sucess
+                    console.log(`User ${res.data.user.username} is register . Go to login`)
                 })
                 .catch(() => {
                     store.dispatch('errorUser')

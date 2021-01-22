@@ -2,6 +2,7 @@ import Vue from 'vue'
 import store from '../store'
 
 export default {
+    // TODO adpate this
     verifyUser: async () => {
         const userId = localStorage.getItem('id-yzimusic')
         await Vue.prototype.$http.get(`http://127.0.0.1:8000/api/users/${userId}`)

@@ -6,18 +6,17 @@
                     <img class="h-5" src="../assets/images/logo.svg" alt="YziMusic logo"/>
                 </a>
             </div>
-
             <div class="block lg:hidden">
-                <button id="nav-toggle"
-                        class=" nav-toggle flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-white hover:border-white">
+                <button v-on:click="toggleNav"
+                        class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-white hover:border-white">
                     <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <title>Menu</title>
                         <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
                     </svg>
                 </button>
             </div>
-            <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0"
-                 id="nav-content">
+            <div :class="['w-full flex-grow lg:flex lg:items-center lg:w-auto lg:block pt-6 lg:pt-0', !navToggle ? 'hidden' :'']"
+                 v-on:click="toggleNav">
                 <ul class="list-reset lg:flex justify-end flex-1 items-center">
                     <li class="mr-3">
                         <a href="/">Accueil</a>
@@ -28,7 +27,7 @@
             </div>
         </nav>
         <div class="relative">
-            <div class="min-h-screen mx-auto bg-ym-light-black mt-18 py-4 px-10 lg:px- mb-28">
+            <div class="min-h-3/4 mx-auto bg-ym-light-black py-10 px-10">
                 <router-view />
             </div>
         </div>
@@ -40,12 +39,19 @@
 </template>
 
 <script>
-    //import Navbar from '@/components/Navbar'
     export default {
         name: "Main",
-/*        components: {
-            Navbar
-        }*/
+        data () {
+            return {
+                navToggle: false
+            }
+        },
+        methods: {
+            toggleNav () {
+                // Show or hidden mobile nav
+                this.navToggle = !this.navToggle
+            }
+        }
     }
 </script>
 

@@ -1,7 +1,6 @@
 <template>
     <div>
         <div>
-            <h2>Step : {{ step }}</h2>
             <Step1 v-if="step === 1" @increment="incrementStep" @decrement="decrementStep"/>
             <Step2 v-else-if="step === 2" @increment="incrementStep" @decrement="decrementStep"/>
             <Step3 v-else-if="step === 3" @increment="incrementStep" @decrement="decrementStep"/>
