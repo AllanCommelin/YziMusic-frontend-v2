@@ -5,7 +5,12 @@
 @tailwind utilities;
 
 body, html {
-    @apply bg-ym-light-black;
+    @apply bg-ym-light-black h-screen;
+}
+
+.main {
+    height: auto;
+    min-height: 100vh;
 }
 
 /* YziMusic Input */

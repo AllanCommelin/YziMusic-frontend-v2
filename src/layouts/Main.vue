@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-ym-light-black min-h-screen relative">
+    <div class="main bg-ym-light-black relative">
         <nav class="flex items-center justify-between flex-wrap bg-ym-black p-6 fixed w-full z-10 top-0">
             <div class="flex items-center flex-shrink-0 text-white mr-6">
                 <a class="text-white no-underline hover:text-white hover:no-underline" href="/">
@@ -20,8 +20,14 @@
                 <ul class="list-reset lg:flex justify-end flex-1 items-center">
                     <li class="mr-3">
                         <a href="/">Accueil</a>
-                        <a href="/register">Inscription</a>
-                        <a href="/login">Connexion</a>
+                        <template v-if="!is_login">
+                            <a href="/register">Inscription</a>
+                            <a href="/login">Connexion</a>
+                        </template>
+                        <template v-else>
+                            <a href="/me">Mon profil</a>
+                            <a href="/logout">Déconnexion</a>
+                        </template>
                     </li>
                 </ul>
             </div>
@@ -31,7 +37,7 @@
                 <router-view />
             </div>
         </div>
-        <div class="h-20 flex items-center justify-between flex-wrap bg-ym-black p-6 w-full z-10">
+        <div class="absolute bottom-0 h-20 flex items-center justify-between flex-wrap bg-ym-black p-6 w-full z-10">
             <p class="text-white">YziMusic</p>
             <p class="text-white">Allan Commelin</p>
         </div>
@@ -39,12 +45,20 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex'
+
     export default {
         name: "Main",
         data () {
             return {
                 navToggle: false
             }
+        },
+        computed: {
+            ...mapState({
+                user: state => state.User.user,
+                is_login: state => state.User.is_login
+            })
         },
         methods: {
             toggleNav () {

@@ -28,7 +28,7 @@
                 <input v-model="soundcloudLink" class="input" id="soundcloud" name="soundcloudLink"/>
             </div>
         </div>
-        <div class="mt-10 w-full flex justify-center">
+        <div class="mt-10 mb-16 w-full flex justify-center">
             <button class="btn-yzi" v-on:click="previous()">Retour</button>
             <button class="btn-yzi" v-on:click="next()">S'inscrire</button>
         </div>
@@ -72,7 +72,7 @@
             ...mapActions({
                 registerUser: 'User/registerUser'
             }),
-            next () {
+            async next () {
                 this.$store.dispatch('User/SET_USER_FIELD', {
                     facebookLink: this.facebookLink,
                     twitterLink: this.twitterLink,
@@ -83,8 +83,9 @@
                     appleMusicLink: this.appleMusicLink,
                     soundcloudLink: this.soundcloudLink,
                 })
-                this.registerUser()
-                //this.$emit('increment')
+                await this.registerUser()
+                //Todo: check return of register user if status !== 200, not increment, catch error
+                this.$emit('increment')
             },
             previous() {
                 this.$emit('decrement')

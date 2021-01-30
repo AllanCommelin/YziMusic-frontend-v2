@@ -1,5 +1,4 @@
 import Vue from 'vue'
-//import userApi from '@/api/user'
 
 const state = {
     user: {
@@ -21,6 +20,11 @@ const state = {
         deezerLink: '',
         appleMusicLink: '',
         soundcloudLink: '',
+        banished: false,
+        likes: 0,
+        profilePicture: null,
+        bannerPicture: null,
+        creationDate: null,
     },
     is_login: false,
     errorLogin: false,
@@ -78,8 +82,9 @@ const actions = {
                 password: password
             })
                 .then(res => {
-                    //TODO: set data and redirect to home screen
-                    console.log(`User ${res.data.user.username} is register. Go to home`)
+                    localStorage.setItem(process.env.VUE_APP_API_TOKEN, res.data.data.token)
+                    store.commit('setUserField', res.data.data.user)
+                    store.commit('setIsLogInTrue')
                 })
                 .catch(() => {
                     store.dispatch('errorUser')
@@ -94,6 +99,7 @@ const actions = {
     },
     registerUser: function (store) {
         store.commit('initError')
+        store.commit('setUserField', {creationDate: new Date()})
         if (!store.state.pendingUser) {
             Vue.prototype.$http.post('http://localhost:6985/auth/register', store.state.user)
                 .then(res => {
@@ -110,7 +116,7 @@ const actions = {
         store.commit('setError', error)
         setTimeout(function () {
             store.commit('initError')
-        }, 3000)
+        }, 300000)
     }
 }
 

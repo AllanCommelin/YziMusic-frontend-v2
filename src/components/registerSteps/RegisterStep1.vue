@@ -22,7 +22,7 @@
                 <label class="label" for="password">Mot de passe</label>
                 <input id="password" class="input" v-model="password" required name="password" type="password" placeholder="Minimum 8 caractères"/>
             </div>
-            <div class="mt-10 w-full flex justify-center">
+            <div class="mt-10 mb-16 w-full flex justify-center">
                 <button class="btn-yzi" :disabled="!isFullFilled" v-on:click="next()">Suivant</button>
             </div>
         </div>
