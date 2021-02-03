@@ -22,9 +22,9 @@
             </div>
         </div>
         <div class="flex justify-center left-0 right-0 absolute bottom-0">
-            <a href="#" class="uppercase italic font-bold w-full mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-main hover:bg-main text-white font-normal py-4 px-4 rounded-b">
-            Découvrir
-            </a>
+            <router-link :to="{name: 'Profile.show', params: { id: user._id }}" class="uppercase italic font-bold w-full mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-main hover:bg-main text-white font-normal py-4 px-4 rounded-b">
+                Découvrir
+            </router-link>
         </div>
     </div>
 </template>
@@ -32,7 +32,10 @@
 <script>
     export default {
         name: "UserCard",
-        props: ['user']
+        props: ['user'],
+        methods: {
+
+        }
     }
 </script>
 

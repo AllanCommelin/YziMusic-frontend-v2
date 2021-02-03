@@ -79,6 +79,11 @@
         overflow-x: scroll;
         overflow-y: hidden;
         white-space: nowrap;
+        /* Hidden scroll bar c: */
+        scrollbar-width: none; /* For Firefox */
+        &::-webkit-scrollbar { /* For Chrome, Safari and Opera */
+            display: none;
+        }
 
         .card-user {
             display: inline-block;
