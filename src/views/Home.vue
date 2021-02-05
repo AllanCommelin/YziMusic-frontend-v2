@@ -10,6 +10,7 @@
                     <UserCard :user="user" />
                 </div>
             </div>
+            <button v-on:click="test">TESSSST</button>
             <h2 class="text-left font-black text-main text-3xl">Nouveaux</h2>
             <div class="scrollable-cards">
                 <div class="card-user" v-for="user in mostRecentUsers" :key="user._id">
@@ -48,6 +49,14 @@
             this.getMostRecentUsers()
         },
         methods: {
+            test: function () {
+                Vue.prototype.$http.put('http://localhost:6985/api/users/' + this.user._id, {'description': 'app'})
+                    .then(res => {
+                        console.log('ok',res)
+                    }).catch(err => {
+                        console.log('err',err)
+                })
+            },
             getMostRecentUsers: function () {
                 // Call api to get 10 most recent users
                 Vue.prototype.$http.get('http://localhost:6985/api/users/most/recent')

@@ -8,6 +8,8 @@ module.exports = {
             'full': '100%',
         },
         borderWidth: {
+            '1': '1px',
+            '2': '2px',
             '3': '3px',
             '4': '4px',
             '5': '5px',
@@ -34,9 +36,14 @@ module.exports = {
                 '19': '4.77rem',
                 '28': '7.5rem',
                 '52': '13rem',
+                '56': '14rem',
+                '64': '16rem',
                 '72': '18rem',
                 '96': '24rem',
                 '144': '36rem',
+            },
+            maxWidth: {
+                '56': '14rem',
             },
         }
     },

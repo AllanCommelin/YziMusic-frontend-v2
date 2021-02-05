@@ -69,8 +69,15 @@ const actions = {
     SET_USER_FIELD: ({commit}, payload) => {
         commit('setUserField', payload)
     },
-    loadUser: function (store, user) {
-        store.commit('setUser', user)
+    loadUser: function (store) {
+        store.commit('setPendingUserTrue')
+        Vue.prototype.$http.get('http://localhost:6985/auth/me')
+            .then(res => {
+                store.commit('setUserField', res.data.data.user)
+                store.commit('setIsLogInTrue')
+            })
+            .catch(() => {})
+        store.commit('setPendingUserFalse')
         store.commit('setIsLogInTrue')
     },
     logInUser: function (store, {email, password}) {
@@ -82,7 +89,6 @@ const actions = {
                 password: password
             })
                 .then(res => {
-                    localStorage.setItem(process.env.VUE_APP_API_TOKEN, res.data.data.token)
                     store.commit('setUserField', res.data.data.user)
                     store.commit('setIsLogInTrue')
                 })
@@ -93,9 +99,8 @@ const actions = {
         }
     },
     logOutUser: function (store) {
-        localStorage.removeItem('token')
-        store.commit('setUser', {})
         store.commit('setIsLogInFalse')
+        store.commit('setUser', {})
     },
     registerUser: function (store) {
         store.commit('initError')

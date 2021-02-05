@@ -26,7 +26,7 @@
                         </template>
                         <template v-else>
                             <a href="/me">Mon profil</a>
-                            <a href="/logout">Déconnexion</a>
+                            <button v-on:click="logout">Déconnexion</button>
                         </template>
                     </li>
                 </ul>
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
+    import { mapState, mapActions } from 'vuex'
 
     export default {
         name: "Main",
@@ -61,9 +61,15 @@
             })
         },
         methods: {
+            ...mapActions({
+                logOutUser: 'User/logOutUser'
+            }),
             toggleNav () {
                 // Show or hidden mobile nav
                 this.navToggle = !this.navToggle
+            },
+            logout () {
+                this.logOutUser()
             }
         }
     }
