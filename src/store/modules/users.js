@@ -23,7 +23,6 @@ const state = {
         banished: false,
         likes: 0,
         profilePicture: null,
-        bannerPicture: null,
         creationDate: null,
     },
     is_login: false,
@@ -73,12 +72,11 @@ const actions = {
         store.commit('setPendingUserTrue')
         Vue.prototype.$http.get('http://localhost:6985/auth/me')
             .then(res => {
-                store.commit('setUserField', res.data.data.user)
+                store.commit('setUserField', res.data.data)
                 store.commit('setIsLogInTrue')
             })
             .catch(() => {})
         store.commit('setPendingUserFalse')
-        store.commit('setIsLogInTrue')
     },
     logInUser: function (store, {email, password}) {
         store.commit('initError')

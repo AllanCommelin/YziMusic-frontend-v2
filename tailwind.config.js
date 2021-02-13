@@ -28,8 +28,8 @@ module.exports = {
                 'ym-grey': '#e3e3e9',
                 'ym-blue': '#1cb4ff',
                 'ym-light-blue': '#A1C6EA',
-                'ym-black': '#0C0C0C',
-                'ym-light-black': '#232323',
+                'ym-black': '#0D0D0D',
+                'ym-light-black': '#292929',
             },
             spacing: {
                 '18': '4.5rem',

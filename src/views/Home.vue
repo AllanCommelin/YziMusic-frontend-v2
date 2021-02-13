@@ -1,21 +1,24 @@
 <template>
     <div>
         <div class="absolute bg-center bg-cover flex items-center justify-center top-0 left-0 right-0 bg-gray-400 h-40 sm:h-72" v-bind:style="{ backgroundImage: 'url('+homeBanner+')' }">
-            <span class="font-black text-6xl text-white">YziMusic</span>
+            <span class="font-black text-6xl title-ym">YziMusic</span>
         </div>
         <div class="mt-40 flex flex-wrap sm:mt-72 mb-16">
-            <h2 class="text-left font-black text-main text-3xl">Populaires</h2>
-            <div class="scrollable-cards">
+            <div class="w-full">
+              <h2 class="relative text-left font-black uppercase italic text-5xl shadow-title title--outline mb-4">Populaires</h2>
+              <div class="scrollable-cards">
                 <div class="card-user" v-for="user in mostLikedUsers" :key="user._id">
-                    <UserCard :user="user" />
+                  <UserCard :user="user" />
                 </div>
+              </div>
             </div>
-            <button v-on:click="test">TESSSST</button>
-            <h2 class="text-left font-black text-main text-3xl">Nouveaux</h2>
-            <div class="scrollable-cards">
+            <div class="w-full">
+              <h2 class="relative text-left font-black uppercase italic text-5xl shadow-title title--outline mb-4">Nouveaux</h2>
+              <div class="scrollable-cards">
                 <div class="card-user" v-for="user in mostRecentUsers" :key="user._id">
-                    <UserCard :user="user" />
+                  <UserCard :user="user" />
                 </div>
+              </div>
             </div>
         </div>
     </div>
@@ -49,14 +52,6 @@
             this.getMostRecentUsers()
         },
         methods: {
-            test: function () {
-                Vue.prototype.$http.put('http://localhost:6985/api/users/' + this.user._id, {'description': 'app'})
-                    .then(res => {
-                        console.log('ok',res)
-                    }).catch(err => {
-                        console.log('err',err)
-                })
-            },
             getMostRecentUsers: function () {
                 // Call api to get 10 most recent users
                 Vue.prototype.$http.get('http://localhost:6985/api/users/most/recent')
@@ -82,6 +77,9 @@
     </script>
 
 <style lang="scss" scoped>
+    .title-ym {
+        color: #d0d0d0;
+    }
     .scrollable-cards {
         margin-left: -2.5rem;
         margin-right: -2.5rem;

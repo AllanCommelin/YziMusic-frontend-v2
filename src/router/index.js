@@ -1,5 +1,5 @@
 import Vue from 'vue';
-/*import store from '@/store'*/
+import store from '@/store'
 import VueRouter from 'vue-router';
 import MainLayout from '@/layouts/Main.vue'
 import defaultRoutes from '@/router/default';
@@ -24,7 +24,7 @@ const router = new VueRouter({
     ]
 })
 
-/*router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     // Si la route nécessite d'être login
     if (to.matched.some(route => route.meta.requiresAuth)) {
         // Si déjà login et set dans le store
@@ -52,6 +52,6 @@ const router = new VueRouter({
         }
         return next()
     }
-})*/
+})
 
 export default router;

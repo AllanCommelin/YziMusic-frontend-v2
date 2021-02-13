@@ -12,6 +12,12 @@
             </div>
         </div>
         <div class="mt-64 sm:mt-96 mb-12 container flex justify-center flex-col sm:flex-row">
+            <div v-if="isAuthUser" class="flex justify-center w-100">
+                <button class="max-w-56 w-full mr-0 sm:mr-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-main font-normal py-2 px-6">
+                    Réglage
+                  <i class="fas fa-user-cog"></i>
+                </button>
+            </div>
             <div class="flex justify-center w-100">
                 <button class="max-w-56 w-full mr-0 sm:mr-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-main font-normal py-2 px-6">
                     Contacter
@@ -101,6 +107,7 @@
 <script>
     import Vue from 'vue'
     import moment from 'moment'
+    import { mapState } from 'vuex'
     import ProfilesTypes from '../../store/constants/ProfilesTypes'
     import MusicsType from '../../store/constants/MusicsTypes'
 
@@ -109,6 +116,7 @@
         data () {
             return {
                 user: {},
+                isAuthUser: false,
                 userProfilesTypes: [],
                 userMusicsTypes: [],
                 constProfilesTypes: ProfilesTypes,
@@ -117,16 +125,23 @@
                 showEmail: false
             }
         },
+        computed: {
+            ...mapState({
+                authUser: state => state.User.user,
+                is_login: state => state.User.is_login
+            })
+        },
         mounted () {
-            // this.$route.params.id
-            this.getUser()
+            // Checks if the authenticated user, if it is, is the same as the user you want to see
+            if (this.is_login) this.isAuthUser = this.authUser._id === this.$route.params.id
+            // If not make a call api to get user
+            if (!this.isAuthUser) this.getUser()
         },
         methods: {
             getUser: function () {
                 // Call api to get user by user Id
                 Vue.prototype.$http.get('http://localhost:6985/api/users/'+this.$route.params.id)
                     .then(res => {
-                        console.log(res.data)
                         // Init user
                         this.user = res.data.data
                         // Get label of each profile and music type

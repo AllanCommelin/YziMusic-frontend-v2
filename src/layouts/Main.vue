@@ -1,5 +1,5 @@
 <template>
-    <div class="main bg-ym-light-black relative">
+    <div class="main bg-ym-black relative">
         <nav class="flex items-center justify-between flex-wrap bg-ym-black p-6 fixed w-full z-10 top-0">
             <div class="flex items-center flex-shrink-0 text-white mr-6">
                 <a class="text-white no-underline hover:text-white hover:no-underline" href="/">
@@ -33,7 +33,7 @@
             </div>
         </nav>
         <div class="relative">
-            <div class="min-h-3/4 mx-auto bg-ym-light-black py-10 px-10">
+            <div class="min-h-3/4 mx-auto bg-ym-black py-10 px-10">
                 <router-view />
             </div>
         </div>
