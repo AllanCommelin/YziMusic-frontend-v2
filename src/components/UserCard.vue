@@ -4,7 +4,7 @@
             <span class="font-black text-sm">{{ user.likes }} <i class="fas fa-thumbs-up text-sm text-ym-blue"/></span>
         </div>
         <div class="flex justify-center mt-8">
-            <img src="../assets/images/default-profile.jpg" alt="profile"
+            <img :src="imageProfile" alt="profile"
                  class="h-28 rounded-full border-solid border-main border-5 -mt-3"/>
         </div>
         <div class="text-center px-3 pb-3 pt-2">
@@ -18,7 +18,7 @@
         </div>
         <div class="musics-container flex px-3 py-2 text-grey-dark mb-18">
             <div class="uppercase font-black text-main justify-left flex flex-col items-start align-center pr-4 border-r-2 border-ym-light-black">
-                <span class="block">Style</span>
+                <span class="block">Genres</span>
                 <span class="block">Musicaux</span>
             </div>
             <ul class="chips pl-4 flex flex-wrap justify-left items-center">
@@ -47,6 +47,16 @@
             return {
                 constProfilesTypes: ProfilesTypes,
                 constMusicsTypes: MusicsType,
+            }
+        },
+        created() {
+            console.log(this.imageProfile)
+        },
+        computed: {
+            imageProfile: function () {
+                return this.user.profilePicture ?
+                    'data:'+ this.user.profilePicture.contentType +';base64,'+btoa(String.fromCharCode(...new Uint8Array(this.user.profilePicture.data.data)))
+                    : require('../assets/images/default-profile.jpg')
             }
         },
         methods: {

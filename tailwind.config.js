@@ -15,6 +15,7 @@ module.exports = {
             '5': '5px',
             '6': '6px',
             '7': '7px',
+            '8': '8px',
         },
         extend: {
             inset: {
@@ -35,6 +36,7 @@ module.exports = {
                 '18': '4.5rem',
                 '19': '4.77rem',
                 '28': '7.5rem',
+                '48': '12rem',
                 '52': '13rem',
                 '56': '14rem',
                 '64': '16rem',

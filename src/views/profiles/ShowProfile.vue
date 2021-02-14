@@ -1,60 +1,43 @@
 <template>
-    <div class="mb-16">
-        <div class="mb-40 sm:mb-72">
-            <div class="absolute bg-center bg-cover flex items-center justify-center top-0 left-0 right-0 bg-gray-400 h-40 sm:h-72" v-bind:style="{ backgroundImage: 'url('+userBanner+')' }">
-                <div class="absolute -bottom-22 flex flex-col justify-center">
+    <div class="mb-16 flex flex-wrap">
+        <div class="profile-header w-full lg:w-1/4 relative">
+            <div class="absolute setting-btn">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="mb-6">
+                <div class="relative flex justify-center">
                     <img src="../../assets/images/default-profile.jpg" alt="profile"
-                         class="h-52 rounded-full border-solid border-main border-7 -mt-3"/>
+                         class="h-48 relative rounded-full border-solid border-main border-8 -mt-3"/>
+                    <h1 class="absolute username-profile mt-4 text-white text-4xl font-black font-sans italic uppercase">
+                        {{ user.username }}
+                    </h1>
                 </div>
-                <h1 class="absolute -bottom-25 text-white text-3xl font-black font-sans uppercase">
-                    {{ user.username }}
-                </h1>
             </div>
-        </div>
-        <div class="mt-64 sm:mt-96 mb-12 container flex justify-center flex-col sm:flex-row">
-            <div v-if="isAuthUser" class="flex justify-center w-100">
-                <button class="max-w-56 w-full mr-0 sm:mr-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-main font-normal py-2 px-6">
-                    Réglage
-                  <i class="fas fa-user-cog"></i>
-                </button>
-            </div>
-            <div class="flex justify-center w-100">
-                <button class="max-w-56 w-full mr-0 sm:mr-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-main font-normal py-2 px-6">
-                    Contacter
-                    <i class="fas fa-paper-plane text-xl text-main"></i>
-                </button>
-            </div>
-            <div class="flex justify-center w-100">
-                <button class="max-w-56 w-full ml-0 sm:ml-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-main font-normal py-2 px-6">
-                    {{ user.likes }}
-                    <i class="fas fa-thumbs-up text-xl text-main"/>
-                </button>
-            </div>
-
-        </div>
-        <div class="flex justify-between flex-col lg:flex-row">
-            <div class="infos py-2 px-8 bg-ym-black order-2 w-full lg:w-1/6 lg:order-1 text-left">
-                <h2 class="text-main uppercase font-black italic text-2xl mb-1">Profil</h2>
-                <div class="flex flex-row lg:flex-col">
-                    <div class="w-1/2 mb-4 lg:w-full">
-                        <span class="italic font-thin text-sm text-white">Type(s)</span>
-                        <div v-for="(profile, index) in userProfilesTypes" v-bind:key="profile">
-                            <span class="font-bold text-xl text-white">
-                                {{ profile}} {{ index + 1 !== userProfilesTypes.length ? ',' : ''}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="w-1/2 mb-4 lg:w-full">
-                        <span class="italic font-thin text-sm text-white">Style(s)</span>
-                        <div>
-                            <span v-for="(music, index) in userMusicsTypes" v-bind:key="music" class="font-bold text-xl text-white">
-                                {{ music }} {{ index + 1 !== userMusicsTypes.length ? ',' : ''}}
-                            </span>
-                        </div>
-                    </div>
+            <div class="profile-main-infos">
+                <div>
+                    <span v-for="(profile, index) in userProfilesTypes" v-bind:key="profile.value" class="font-black text-2xl text-main">
+                    {{ profile.label }}{{ index + 1 !== userProfilesTypes.length ? ', ' : ' '}}
+                </span>
                 </div>
-                <h2 class="text-main uppercase font-black italic text-2xl mb-1">Infos</h2>
-                <div class="flex flex-row lg:flex-col w-full flex-wrap">
+                <div class="musics-container flex px-3 py-2 text-grey-dark my-4 px-10 -mx-10">
+                    <div class="uppercase font-thin text-white justify-left flex flex-col items-start align-center pr-4 border-r-2 border-ym-light-black">
+                        <span class="block">Genres</span>
+                        <span class="block">Musicaux</span>
+                    </div>
+                    <ul class="chips pl-4 flex flex-wrap justify-left items-center">
+                        <li v-for="music in userMusicsTypes" v-bind:key="music.value">
+                            {{ music.label }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="profile-secondary-infos text-left my-4">
+                <div v-on:click="showInfos = !showInfos" class="flex justify-between items-center text-white">
+                    <h2 class="title-infos uppercase font-black italic text-2xl my-0 py-0">Infos</h2>
+                    <i v-show="!showInfos" class="fas fa-chevron-right"></i>
+                    <i v-show="showInfos" class="fas fa-chevron-down"></i>
+                </div>
+                <div v-show="showInfos" class="transition-all flex flex-row lg:flex-col w-full flex-wrap">
                     <div class="mb-4 w-full">
                         <span class="italic font-thin text-sm text-white">Nom</span>
                         <div>
@@ -86,8 +69,24 @@
                             <button v-else v-on:click="displayEmail" class="uppercase text-sm italic font-bold w-auto btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-main hover:bg-main text-white font-normal py-2 px-4 rounded">Voir</button>
                         </div>
                     </div>
-                </div>
             </div>
+        </div>
+            <template v-if="!isAuthUser">
+                <div class="flex justify-center w-100">
+                    <button class="max-w-56 w-full mr-0 sm:mr-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-main font-normal py-2 px-6">
+                        Contacter
+                        <i class="fas fa-paper-plane text-xl text-main"></i>
+                    </button>
+                </div>
+                <div class="flex justify-center w-100">
+                    <button class="max-w-56 w-full ml-0 sm:ml-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-main font-normal py-2 px-6">
+                        {{ user.likes }}
+                        <i class="fas fa-thumbs-up text-xl text-main"/>
+                    </button>
+                </div>
+            </template>
+        </div>
+        <div class="profile-content w-full lg:w-3/4">
             <div class="w-full order-1 py-2 px-8 bg-ym-black lg:w-3/6 lg:order-2 text-left">
                 <h2 class="text-main uppercase font-black italic text-2xl mb-1">Description</h2>
                 <p class="text-white text-lg font-thin mb-4">{{ user.description }}</p>
@@ -117,25 +116,43 @@
             return {
                 user: {},
                 isAuthUser: false,
-                userProfilesTypes: [],
-                userMusicsTypes: [],
                 constProfilesTypes: ProfilesTypes,
                 constMusicsTypes: MusicsType,
                 userBanner: require('../../assets/images/default-banner.png'),
-                showEmail: false
+                showEmail: false,
+                showInfos: false
             }
         },
         computed: {
             ...mapState({
                 authUser: state => state.User.user,
                 is_login: state => state.User.is_login
-            })
+            }),
+            userProfilesTypes: function () {
+                //  Get translate profiles types
+                return this.constProfilesTypes.filter( profile =>{
+                    if (this.user.profilesTypes.includes(profile.value)) {
+                        profile.checked = true
+                        return profile
+                    }
+                })
+            },
+            userMusicsTypes: function () {
+                //  Get translate musics types
+                return this.constMusicsTypes.filter( music => {
+                    if (this.user.musicsTypes.includes(music.value)) {
+                        music.checked = true
+                        return music
+                    }
+                })
+            }
         },
         mounted () {
             // Checks if the authenticated user, if it is, is the same as the user you want to see
             if (this.is_login) this.isAuthUser = this.authUser._id === this.$route.params.id
             // If not make a call api to get user
             if (!this.isAuthUser) this.getUser()
+            else this.user = this.authUser
         },
         methods: {
             getUser: function () {
@@ -144,9 +161,6 @@
                     .then(res => {
                         // Init user
                         this.user = res.data.data
-                        // Get label of each profile and music type
-                        this.getProfilesType();
-                        this.getMusicsType();
                     })
                     .catch(() => {
                         //Todo: catch error
@@ -156,24 +170,6 @@
                 // Show email of user
                 this.showEmail = true
             },
-            getProfilesType: function () {
-                //  Get translate profiles types
-                if(this.user.profilesTypes && Object.keys(this.user.profilesTypes).length !== 0) {
-                    this.userProfilesTypes = this.user.profilesTypes.map((type) => {
-                        const { label } = this.constProfilesTypes.find(profile => profile.value === type)
-                        return label
-                    })
-                }
-            },
-            getMusicsType: function () {
-                //  Get translate musics types
-                if(this.user.musicsTypes && Object.keys(this.user.musicsTypes).length !== 0) {
-                    this.userMusicsTypes = this.user.musicsTypes.map((type) => {
-                        const { label } = this.constMusicsTypes.find(music => music.value === type)
-                        return label
-                    })
-                }
-            },
             getAge: function (date) {
                 return moment().diff(moment(date),'year')
             }
@@ -181,6 +177,31 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+    .username-profile {
+        bottom: -1.25rem;
+    }
+    div.musics-container {
+        background-color: #343434;
+    }
+    .setting-btn {
+        right: 0;
+        top: -1rem;
+        color: #919191;
+    }
+    .title-infos {
+        color: #919191;
+    }
+    ul.chips {
+        li {
+            display: inline-block;
+            padding: .25rem .5rem;
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: .8rem;
+            margin: .7rem .2rem;
+            background-color: #7149F9;
+            color: white;
+        }
+    }
 </style>
