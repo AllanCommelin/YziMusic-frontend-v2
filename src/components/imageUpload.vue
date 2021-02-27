@@ -1,4 +1,5 @@
 <template>
+    <!-- POC-->
     <div>
         <span>Image upload</span>
         <input type="file" v-on:change="onFileChange">

@@ -1,7 +1,8 @@
 import Login from '@/views/auth/Login.vue'
 import Register from '@/views/auth/Register.vue'
 // TMP POC
-import Upload from '@/components/imageUpload.vue'
+import ImageUpload from '@/components/imageUpload.vue'
+import TrackUpload from '@/components/trackUpload.vue'
 
 const authRoutes = [
     {
@@ -16,10 +17,15 @@ const authRoutes = [
     },
     // TMP ROUTE FOR POC
     {
-        path: '/auth/user/upload',
-        name: 'upload',
-        component: Upload
+        path: '/auth/user/upload/picture',
+        name: 'Upload.picture',
+        component: ImageUpload
     },
+    {
+        path: '/auth/user/upload/track',
+        name: 'Upload.track',
+        component: TrackUpload
+    }
 ]
 
 export default authRoutes
