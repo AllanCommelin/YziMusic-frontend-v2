@@ -52,9 +52,11 @@ const mutations = {
     },
     setIsLogInTrue (state) {
         state.is_login = true
+        localStorage.setItem(process.env.VUE_APP_AUTH_USER, true)
     },
     setIsLogInFalse (state) {
         state.is_login = false
+        localStorage.removeItem(process.env.VUE_APP_AUTH_USER)
     },
     setPendingUserTrue (state) {
         state.pendingUser = true

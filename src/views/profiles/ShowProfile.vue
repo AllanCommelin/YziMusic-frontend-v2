@@ -1,12 +1,12 @@
 <template>
     <div class="mb-16 flex flex-wrap">
         <div class="profile-header w-full lg:w-1/4 relative">
-            <div class="absolute setting-btn">
+            <div class="absolute setting-btn" v-on:click="goToSetting">
                 <i class="fas fa-cog"></i>
             </div>
             <div class="mb-6">
                 <div class="relative flex justify-center">
-                    <img src="../../assets/images/default-profile.jpg" alt="profile"
+                    <img :src="imageProfile" alt="profile"
                          class="h-48 relative rounded-full border-solid border-main border-8 -mt-3"/>
                     <h1 class="absolute username-profile mt-4 text-white text-4xl font-black font-sans italic uppercase">
                         {{ user.username }}
@@ -128,10 +128,15 @@
                 authUser: state => state.User.user,
                 is_login: state => state.User.is_login
             }),
+            imageProfile: function () {
+                return this.user.profilePicture ?
+                    'data:'+ this.user.profilePicture.contentType +';base64,'+ this.user.profilePicture.picture
+                    : require('../../assets/images/default-profile.jpg')
+            },
             userProfilesTypes: function () {
                 //  Get translate profiles types
                 return this.constProfilesTypes.filter( profile =>{
-                    if (this.user.profilesTypes.includes(profile.value)) {
+                    if (this.user.profilesTypes && this.user.profilesTypes.includes(profile.value)) {
                         profile.checked = true
                         return profile
                     }
@@ -140,7 +145,7 @@
             userMusicsTypes: function () {
                 //  Get translate musics types
                 return this.constMusicsTypes.filter( music => {
-                    if (this.user.musicsTypes.includes(music.value)) {
+                    if (this.user.musicsTypes && this.user.musicsTypes.includes(music.value)) {
                         music.checked = true
                         return music
                     }
@@ -155,6 +160,9 @@
             else this.user = this.authUser
         },
         methods: {
+            goToSetting: function () {
+                this.$router.push({name:'Profile.setting'})
+            },
             getUser: function () {
                 // Call api to get user by user Id
                 Vue.prototype.$http.get('http://localhost:6985/api/users/'+this.$route.params.id)

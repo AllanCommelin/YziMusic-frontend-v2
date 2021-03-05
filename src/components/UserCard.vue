@@ -49,9 +49,6 @@
                 constMusicsTypes: MusicsType,
             }
         },
-        created() {
-            console.log(this.imageProfile)
-        },
         computed: {
             imageProfile: function () {
                 return this.user.profilePicture ?

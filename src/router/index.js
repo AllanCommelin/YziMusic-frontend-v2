@@ -25,29 +25,27 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-    // Si la route nécessite d'être login
+    // Check if user has Api Token
+    let hasApiToken = localStorage.getItem(process.env.VUE_APP_AUTH_USER)
+    // If the route requires authentication
     if (to.matched.some(route => route.meta.requiresAuth)) {
-        // Si déjà login et set dans le store
+        // If user is already log
         if (store.state.User.is_login) {
             return next()
-        } else {
-            // Si il y a un token dans le localStorage mais que le user n'est pas dans le store
-            try {
-                await store.dispatch('User/loadUser')
-                    .then(() => {
-                        next()
-                    }).catch(() => {
-                        next('/login')
-                    })
-            } catch (e) {
-                return next('/login')
-            }
+        } else if (hasApiToken) {
+            // If there is a token in the Cookies but the user is not in the Store
+            await store.dispatch('User/loadUser')
+                .then(() => {
+                    next()
+                }).catch(() => {
+                    next('/login')
+                })
         }
-        // Si la route ne nécessite pas d'être login, mais qu'il y a un token dans le localStorage
-    } else {
-        if (store.state.User.is_login) {
+        return next('/login')
+    } else { // If the route does not require a login, but there is a token in Cookies
+        if (store.getters['User/getIsLogin']) {
             return next()
-        } else {
+        } else if(hasApiToken) {
             await store.dispatch('User/loadUser')
         }
         return next()
