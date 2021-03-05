@@ -88,9 +88,8 @@
             formatCheckedData(checkData) {
                 let data = []
                 checkData.forEach( music => {
-                        if(music.checked) data = [...data, music.value]
-                    }
-                )
+                    if(music.checked) data = [...data, music.value]
+                })
                 return data
             },
             next() {

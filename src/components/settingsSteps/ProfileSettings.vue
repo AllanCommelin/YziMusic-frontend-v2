@@ -18,6 +18,36 @@
                 <label class="label" for="username">Pseudo</label>
                 <input id="username" class="input" v-model="username" required name="username" placeholder="Jdoe"/>
             </div>
+            <div class="w-full sm:pr-2 text-left my-2">
+                <label class="label" for="description">Description</label>
+                <textarea class="input w-full" placeholder="Bio, projets, souhaits..." v-model="description" name="description" id="description" rows="8"></textarea>
+            </div>
+            <div class="sm:w-1/2 w-full sm:pr-2 text-left my-2">
+                <label class="label" for="location">Ville, Pays</label>
+                <input type="text" class="input" id="location" placeholder="Paris, France" v-model="location">
+            </div>
+            <div class="sm:w-1/2 w-full sm:pr-2 text-left my-2">
+                <label class="label" for="birthday">Date de naissance</label>
+                <input type="date" class="input" id="birthday" placeholder="31/12/1990" v-model="birthday">
+            </div>
+            <h3 class="text-xl w-full text-ym-blue font-bold my-4">Styles de musique</h3>
+            <div class="flex flex-wrap text-ym-grey">
+                <div class="grid gap-4 grid-cols-2 w-full">
+                    <div v-for="type in musicsTypes" v-bind:key="type.value">
+                        <label :for="type.value" class="mr-2">{{ type.label }}</label>
+                        <input type="checkbox" class="checkbox" :checked="type.checked" v-model="type.checked" v-bind:id="type.value"/>
+                    </div>
+                </div>
+            </div>
+            <h3 class="text-xl text-ym-blue w-full font-bold my-4">Types de profil</h3>
+            <div class="flex flex-wrap text-ym-grey">
+                <div class="grid gap-4 grid-cols-2 w-full">
+                    <div v-for="type in profilesTypes" v-bind:key="type.value">
+                        <label :for="type.value" class="mr-2">{{ type.label }}</label>
+                        <input type="checkbox" class="checkbox" :checked="type.checked" v-model="type.checked" v-bind:id="type.value"/>
+                    </div>
+                </div>
+            </div>
             <div class="sm:w-1/2 w-full sm:pl-2 text-left my-2">
                 <label class="label" for="password">Mot de passe</label>
                 <input id="password" class="input" v-model="password" required name="password" type="password" placeholder="Minimum 8 caractères"/>
@@ -36,6 +66,8 @@
 <script>
     import {mapState} from "vuex";
     import Vue from "vue";
+    import ProfilesTypes from '../../store/constants/ProfilesTypes';
+    import MusicsType from '../../store/constants/MusicsTypes';
 
     export default {
         name: "ProfileSettings",
@@ -45,8 +77,13 @@
                 firstname: null,
                 lastname: null,
                 username: null,
+                description: null,
+                location: null,
+                birthday: null,
                 password: null,
                 confirmPassword: null,
+                profilesTypes: ProfilesTypes,
+                musicsTypes: MusicsType,
             }
         },
         computed: {
@@ -68,19 +105,45 @@
             this.lastname = this.user.lastname
             this.username = this.user.username
             this.password = this.user.password
+            // Retrieve musics types of user's profile
+            this.user.musicsTypes.forEach(music => {
+                this.musicsTypes.forEach(obj => {
+                    if(obj.value === music) obj.checked = true;
+                })
+            })
+            // Retrieve profiles types of user's profile
+            this.user.profilesTypes.forEach(profile => {
+                this.profilesTypes.forEach(obj => {
+                    if(obj.value === profile) obj.checked = true;
+                })
+            })
         },
         methods: {
+            /* Get checked data to format API */
+            formatCheckedData(checkData) {
+                let data = []
+                checkData.forEach( music => {
+                    if(music.checked) data = [...data, music.value]
+                })
+                return data
+            },
             updateUser: function () {
                 let updateData = {
                     email: this.email,
                     firstname: this.firstname,
                     lastname: this.lastname,
-                    username: this.username
+                    username: this.username,
+                    description: this.description,
+                    location: this.location,
+                    birthday: this.birthday,
+                    profilesTypes: this.formatCheckedData(this.profilesTypes),
+                    musicsTypes: this.formatCheckedData(this.musicsTypes),
                 }
                 if (this.password) updateData.password = this.password
                 Vue.prototype.$http.put('http://localhost:6985/api/users/' + this.user._id, updateData)
                     .then(res => {
                         console.log('Update success', res)
+                        //todo: Display Alert success
                     })
                     .catch(() => {
                         //Todo: catch error
