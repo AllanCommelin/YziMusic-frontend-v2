@@ -6,7 +6,7 @@
             </div>
             <div class="mb-6">
                 <div class="relative flex justify-center">
-                    <img :src="imageProfile" alt="profile"
+                    <img :src="imageProfile" alt="photo de profil"
                          class="h-48 relative rounded-full border-solid border-main border-8 -mt-3"/>
                     <h1 class="absolute username-profile mt-4 text-white text-4xl font-black font-sans italic uppercase">
                         {{ user.username }}

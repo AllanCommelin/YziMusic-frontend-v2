@@ -19,6 +19,10 @@ module.exports = {
         },
         extend: {
             inset: {
+                '1': '.5rem',
+                '2': '1rem',
+                '3': '1.5rem',
+                '4': '2rem',
                 '-20': '-5rem',
                 '-22': '-5.5rem',
                 '-24': '-6rem',
@@ -26,6 +30,7 @@ module.exports = {
             },
             colors: {
                 'main': '#7149F9',
+                'main-light': '#b49bfc',
                 'ym-grey': '#e3e3e9',
                 'ym-blue': '#1cb4ff',
                 'ym-light-blue': '#A1C6EA',
@@ -47,6 +52,12 @@ module.exports = {
             maxWidth: {
                 '56': '14rem',
             },
+            minWidth: {
+                '1/4': '25%',
+                '1/2': '50%',
+                '3/4': '75%',
+                'full': '100%',
+            }
         }
     },
     variants: {

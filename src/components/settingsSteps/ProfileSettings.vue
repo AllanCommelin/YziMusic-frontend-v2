@@ -1,20 +1,24 @@
 <template>
-    <div>
-        <h2 class="text-3xl my-4 font-bold text-white font-black">Mon profil</h2>
+    <div class="text-left">
+        <modalUploadPicture v-show="showModalUploadPicture" @close="showModalUploadPicture = false" :imageProfile="imageProfile" :user="user"/>
         <div class="flex flex-wrap justify-between text-ym-grey">
-            <div class="sm:w-1/2 w-full sm:pr-2 text-left my-2">
+            <div class="sm:w-1/3 w-full text-left my-2">
+                <img :src="imageProfile" alt="Photo de profil" class="h-24 relative block mx-auto rounded-full border-solid border-main border-5">
+                <button v-on:click="showModalUploadPicture = true" class="block mx-auto font-400 italic underline hover:text-ym-blue">Changer</button>
+            </div>
+            <div class="sm:w-1/3 w-full sm:pr-2 text-left my-2">
                 <label class="label" for="firstname">Prénom</label>
                 <input id="firstname" class="input" v-model="firstname" name="firstname" required placeholder="John"/>
             </div>
-            <div class="sm:w-1/2 w-full sm:pl-2 text-left my-2">
+            <div class="sm:w-1/3 w-full sm:pl-2 text-left my-2">
                 <label class="label" for="lastname">Nom</label>
                 <input id="lastname" class="input" v-model="lastname" name="lastname" required placeholder="Doe"/>
             </div>
-            <div class="w-full text-left my-2">
+            <div class="sm:w-1/2 w-full sm:pr-2 text-left my-2">
                 <label class="label" for="email">Adresse mail</label>
                 <input id="email" v-model="email" class="input" required name="email" type="email" placeholder="JohnDoe@gmail.com"/>
             </div>
-            <div class="sm:w-1/2 w-full sm:pr-2 text-left my-2">
+            <div class="sm:w-1/2 w-full sm:pl-2 text-left my-2">
                 <label class="label" for="username">Pseudo</label>
                 <input id="username" class="input" v-model="username" required name="username" placeholder="Jdoe"/>
             </div>
@@ -48,6 +52,7 @@
                     </div>
                 </div>
             </div>
+            <h3 class="text-xl text-ym-blue w-full font-bold my-4">Changer mon mot de passe</h3>
             <div class="sm:w-1/2 w-full sm:pl-2 text-left my-2">
                 <label class="label" for="password">Mot de passe</label>
                 <input id="password" class="input" v-model="password" required name="password" type="password" placeholder="Minimum 8 caractères"/>
@@ -68,11 +73,16 @@
     import Vue from "vue";
     import ProfilesTypes from '../../store/constants/ProfilesTypes';
     import MusicsType from '../../store/constants/MusicsTypes';
+    import modalUploadPicture from "@/components/upload/modalUploadPicture";
 
     export default {
         name: "ProfileSettings",
+        components: {
+            modalUploadPicture
+        },
         data () {
             return {
+                showModalUploadPicture: false,
                 email: null,
                 firstname: null,
                 lastname: null,
@@ -97,7 +107,12 @@
                     this.password.length > 7 && this.confirmPassword === this.password :
                     true
                 return requiredFilled && optionalFilled
-            }
+            },
+            imageProfile: function () {
+                return this.user.profilePicture ?
+                    'data:'+ this.user.profilePicture.contentType +';base64,'+ this.user.profilePicture.picture
+                    : require('../../assets/images/default-profile.jpg')
+            },
         },
         mounted() {
             this.email = this.user.email

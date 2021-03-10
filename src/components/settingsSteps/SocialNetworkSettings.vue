@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h2 class="text-3xl my-4 font-bold text-white font-black">Mes réseaux sociaux</h2>
         <div class="flex flex-wrap text-ym-grey">
             <div class="grid gap-4 grid-cols-2 w-full">
                 <label for="facebook">Facebook</label>
