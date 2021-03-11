@@ -6,7 +6,7 @@
                 <button @click="settingsDropdown = !settingsDropdown"
                         class="relative w-auto flex items-center justify-between z-10 text-3xl my-4 text-white font-black focus:outline-none">
                     {{ settingsSelected.label }}
-                    <svg class="h-8 w-8 text-gray-800 ml-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white">
+                    <svg class="h-8 w-8 text-gray-800 ml-6 arrow-anim" v-bind:class="{rotate: !settingsDropdown}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
                 </button>
@@ -91,5 +91,11 @@
 </script>
 
 <style scoped>
-
+    .arrow-anim {
+        transition-duration: .25s;
+        transition-property: transform;
+    }
+    .rotate {
+        transform: rotate(-90deg);
+    }
 </style>

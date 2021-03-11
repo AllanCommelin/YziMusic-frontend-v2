@@ -118,6 +118,9 @@
             this.email = this.user.email
             this.firstname = this.user.firstname
             this.lastname = this.user.lastname
+            this.description = this.user.description
+            this.location = this.user.location
+            this.birthday = this.user.birthday
             this.username = this.user.username
             this.password = this.user.password
             // Retrieve musics types of user's profile

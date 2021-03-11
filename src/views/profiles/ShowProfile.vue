@@ -94,9 +94,59 @@
             <div class="w-full order-3 py-2 px-8 bg-ym-black lg:w-1/6 lg:order-3 text-left">
                 <div>
                     <h2 class="text-main uppercase font-black italic text-2xl">Réseaux sociaux</h2>
-                    <!--Réseaux sociaux-->
+                   <div class="flex py-4">
+                       <div v-if="user.facebookLink" class="text-center px-4">
+                           <a :href="user.facebookLink" class="text-center">
+                               <img src="../../assets/icons/facebook.png" class="icons-social mx-auto my-2" alt="logo facebook">
+                               <span class="text-white">Facebook</span>
+                           </a>
+                       </div>
+                       <div v-if="user.twitterLink" class="text-center px-4">
+                           <a :href="user.twitterLink" class="text-center">
+                               <img src="../../assets/icons/twitter.svg" class="icons-social mx-auto my-2" alt="logo twitter">
+                               <span class="text-white">Twitter</span>
+                           </a>
+                       </div>
+                       <div v-if="user.instagramLink" class="text-center px-4">
+                           <a :href="user.instagramLink" class="text-center">
+                               <img src="../../assets/icons/instagram.png" class="icons-social mx-auto my-2" alt="logo instagram">
+                               <span class="text-white">Instagram</span>
+                           </a>
+                       </div>
+                       <div v-if="user.youtubeLink" class="text-center px-4">
+                           <a :href="user.youtubeLink" class="text-center">
+                               <img src="../../assets/icons/youtube.png" class="icons-social mx-auto my-2" alt="logo youtube">
+                               <span class="text-white">YouTube</span>
+                           </a>
+                       </div>
+                   </div>
                     <h2 class="text-main uppercase font-black italic text-2xl">Streaming</h2>
-                    <!--Streamings-->
+                    <div class="flex py-4">
+                        <div v-if="user.spotifyLink" class="text-center px-4">
+                            <a :href="user.spotifyLink" class="text-center">
+                                <img src="../../assets/icons/spotify.png" class="icons-social mx-auto my-2" alt="logo spotify">
+                                <span class="text-white">Spotify</span>
+                            </a>
+                        </div>
+                        <div v-if="user.appleMusicLink" class="text-center px-4">
+                            <a :href="user.appleMusicLink" class="text-center">
+                                <img src="../../assets/icons/applemusic.png" class="icons-social mx-auto my-2" alt="logo applemusic">
+                                <span class="text-white">Apple Music</span>
+                            </a>
+                        </div>
+                        <div v-if="user.deezerLink" class="text-center px-4">
+                            <a :href="user.deezerLink" class="text-center">
+                                <img src="../../assets/icons/deezer.png" class="icons-social mx-auto my-2" alt="logo deezer">
+                                <span class="text-white">Deezer</span>
+                            </a>
+                        </div>
+                        <div v-if="user.soundcloudLink" class="text-center px-4">
+                            <a :href="user.soundcloudLink" class="text-center">
+                                <img src="../../assets/icons/soundcloud.png" class="icons-social mx-auto my-2" alt="logo soundcloud">
+                                <span class="text-white">SoundCloud</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
