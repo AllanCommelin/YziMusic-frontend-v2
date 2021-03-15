@@ -1,7 +1,7 @@
 <template>
     <div class="w-full min-width relative rounded text-center rounded-t-lg bg-ym-light-black text-white overflow-hidden shadow max-w-xs my-3">
         <div class="absolute right-0 top-0 p-2">
-            <span class="font-black text-sm">{{ user.likes }} <i class="fas fa-thumbs-up text-sm text-ym-blue"/></span>
+            <span class="font-black text-sm">{{ user.likes.length }} <i class="fas fa-thumbs-up text-sm text-ym-blue"/></span>
         </div>
         <div class="flex justify-center mt-8">
             <img :src="imageProfile" alt="profile"
@@ -21,11 +21,12 @@
                 <span class="block">Genres</span>
                 <span class="block">Musicaux</span>
             </div>
-            <ul class="chips pl-4 flex flex-wrap justify-left items-center">
-                <li v-for="music in musicsTypesActive()" v-bind:key="music.value"
+            <ul class="chips pl-4 flex flex-wrap justify-left">
+                <li v-for="music in musicsTypesActiveDisplay()" v-bind:key="music.value"
                     class="chipMusic">
                     {{ music.label }}
                 </li>
+                <li>{{musicsTypesActive(true) > 3 ? '...' : ''}}</li>
             </ul>
         </div>
         <div class="flex justify-center left-0 right-0 absolute bottom-0">
@@ -57,8 +58,15 @@
             }
         },
         methods: {
-            musicsTypesActive: function () {
-                return this.constMusicsTypes.filter( music => this.user.musicsTypes.includes(music.value))
+            musicsTypesActive: function (count = false) {
+                // Get user's musics types
+                const types = this.constMusicsTypes.filter( music => this.user.musicsTypes.includes(music.value))
+                // if parameter count is true, return length of musics types else return musics types
+                return count ? types.length : types
+            },
+            musicsTypesActiveDisplay: function () {
+                // Truncate number of musics types to 3
+                return this.musicsTypesActive().slice(0,3)
             }
         }
     }
@@ -71,6 +79,7 @@
 
     div.musics-container {
         background-color: #343434;
+        min-height: 114px;
     }
 
     ul.chips {
@@ -93,6 +102,7 @@
             &.chipMusic {
                background-color: #7149F9;
                 color: white;
+                display: inline-table;
             }
         }
     }

@@ -1,5 +1,10 @@
 <template>
     <div>
+        <modalUploadTrack v-show="showModalUploadTrack" @close="showModalUploadTrack = false"/>
+        <button v-on:click="showModalUploadTrack = true" class="block mx-auto my-6 bg-main text-white px-6 py-4 rounded font-semibold hover:bg-main-light">
+            Ajouter un projet musical
+            <i class="fas fa-upload"></i>
+        </button>
         <ul>
             <template v-if="tracks.length > 0">
             <li v-for="track in tracks" v-bind:key="track.id"
@@ -16,7 +21,9 @@
             </li>
             </template>
             <template v-else>
-                <span>Aucun projet pour le moment !</span>
+                <li class="px-4 py-2 bg-white font-bold text-black rounded my-4 flex items-center justify-between">
+                    <span>Aucun projet pour le moment !</span>
+                </li>
             </template>
         </ul>
     </div>
@@ -24,12 +31,17 @@
 
 <script>
     import Vue from "vue";
+    import modalUploadTrack from "@/components/upload/modalUploadTrack";
 
     export default {
         name: "TracksSettings",
+        components: {
+            modalUploadTrack
+        },
         data () {
             return {
-                tracks: []
+                tracks: [],
+                showModalUploadTrack: false
             }
         },
         filters: {
@@ -57,6 +69,11 @@
                 // Call api to delete track by id for auth user
                 Vue.prototype.$http.delete('http://localhost:6985/api/tracks/'+id)
                     .then(res => {
+                        // Delete track by id of local tracks
+                        this.tracks.splice(this.tracks.findIndex(function(track){
+                            return track.id === id;
+                        }), 1);
+
                         console.log(res)
                         //Todo: Sucess alert
                     })

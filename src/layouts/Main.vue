@@ -35,6 +35,7 @@
         <div class="relative">
             <div class="min-h-3/4 mx-auto bg-ym-black py-10 px-10">
                 <router-view />
+                <trackPlayer/>
             </div>
         </div>
         <div class="absolute bottom-0 h-20 flex items-center justify-between flex-wrap bg-ym-black p-6 w-full z-10">
@@ -46,9 +47,13 @@
 
 <script>
     import { mapState, mapActions } from 'vuex'
+    import trackPlayer from '@/components/trackPlayer'
 
     export default {
         name: "Main",
+        components: {
+            trackPlayer
+        },
         data () {
             return {
                 navToggle: false

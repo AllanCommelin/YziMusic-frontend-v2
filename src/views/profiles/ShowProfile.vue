@@ -31,7 +31,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="profile-secondary-infos text-left my-4">
+            <div class="profile-secondary-infos text-left my-4 border-b-2 border-infos">
                 <div v-on:click="showInfos = !showInfos" class="flex justify-between items-center text-white">
                     <h2 class="title-infos uppercase font-black italic text-2xl my-0 py-0">Infos</h2>
                     <i v-show="!showInfos" class="fas fa-chevron-right"></i>
@@ -87,14 +87,33 @@
             </template>
         </div>
         <div class="profile-content w-full lg:w-3/4">
-            <div class="w-full order-1 py-2 px-8 bg-ym-black lg:w-3/6 lg:order-2 text-left">
-                <h2 class="text-main uppercase font-black italic text-2xl mb-1">Description</h2>
+            <div class="w-full order-1 py-2 bg-ym-black lg:w-3/6 lg:order-2 text-left">
+                <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">À propos</h2>
                 <p class="text-white text-lg font-thin mb-4">{{ user.description }}</p>
             </div>
-            <div class="w-full order-3 py-2 px-8 bg-ym-black lg:w-1/6 lg:order-3 text-left">
+            <div class="w-full order-1 py-2 bg-ym-black lg:w-3/6 lg:order-2 text-left">
+                <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Projets</h2>
                 <div>
-                    <h2 class="text-main uppercase font-black italic text-2xl">Réseaux sociaux</h2>
-                   <div class="flex py-4">
+                    <ul>
+                        <li v-for="track in user.tracks" v-bind:key="track._id" class="flex w-full max-w-lg border-1 border-main-light py-2 px-4 rounded-lg my-2">
+                            <div class="flex flex-col w-3/4">
+                                <span class="uppercase font-black text-main-light">{{ track.name }}</span>
+                                <span class="font-medium italic text-white text-xs">{{ user.username }}</span>
+                            </div>
+                            <div class="flex w-1/4 items-center justify-end">
+                                <button @click="playTrack(track._id)" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
+                                    <i v-if="play && playingTrack.track._id === track._id" class="fas fa-pause text-xs"></i>
+                                    <i v-else class="fas fa-play text-xs"></i>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="w-full order-3 py-2 bg-ym-black lg:w-1/6 lg:order-3 text-left">
+                <div>
+                    <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Réseaux sociaux</h2>
+                   <div class="flex flex-wrap justify-between py-4">
                        <div v-if="user.facebookLink" class="text-center px-4">
                            <a :href="user.facebookLink" class="text-center">
                                <img src="../../assets/icons/facebook.png" class="icons-social mx-auto my-2" alt="logo facebook">
@@ -120,8 +139,8 @@
                            </a>
                        </div>
                    </div>
-                    <h2 class="text-main uppercase font-black italic text-2xl">Streaming</h2>
-                    <div class="flex py-4">
+                    <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Streaming</h2>
+                    <div class="flex flex-wrap justify-between py-4">
                         <div v-if="user.spotifyLink" class="text-center px-4">
                             <a :href="user.spotifyLink" class="text-center">
                                 <img src="../../assets/icons/spotify.png" class="icons-social mx-auto my-2" alt="logo spotify">
@@ -176,7 +195,9 @@
         computed: {
             ...mapState({
                 authUser: state => state.User.user,
-                is_login: state => state.User.is_login
+                is_login: state => state.User.is_login,
+                playingTrack: state => state.Tracks.playingTrack,
+                play: state => state.Tracks.play,
             }),
             imageProfile: function () {
                 return this.user.profilePicture ?
@@ -230,7 +251,15 @@
             },
             getAge: function (date) {
                 return moment().diff(moment(date),'year')
-            }
+            },
+            playTrack: function (trackId) {
+                Vue.prototype.$http.get('http://localhost:6985/api/tracks/'+trackId)
+                    .then(res => {
+                        this.$store.dispatch('Tracks/setPlayingTrack', res.data.data)
+                    })
+                    .catch(() => {
+                        //Todo: catch error
+                    })}
         }
     }
 </script>
@@ -249,6 +278,9 @@
     }
     .title-infos {
         color: #919191;
+    }
+    .border-infos {
+        border-color: #919191;
     }
     ul.chips {
         li {
