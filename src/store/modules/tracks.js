@@ -1,7 +1,7 @@
 const state = {
-   tracks: [],
-   playingTrack: null,
-   play: false
+    tracks: [],
+    playingTrack: null,
+    play: false
 }
 
 const getters = {

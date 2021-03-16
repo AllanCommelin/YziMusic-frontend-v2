@@ -34,7 +34,6 @@
 
 <script>
 import {mapState} from "vuex";
-
 export default {
     name: "trackPlayer",
     data () {
@@ -115,81 +114,77 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    [v-cloak] {
-        display: none;
+[v-cloak] {
+    display: none;
+}
+[v-cloak] > * {
+    display: none;
+}
+.progress {
+    width: 100%;
+    margin-top: -15px;
+    user-select: none;
+    &__top {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
     }
-    [v-cloak] > * {
-        display: none;
-    }
-    .progress {
-        width: 100%;
-        margin-top: -15px;
-        user-select: none;
-        &__top {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-        }
-
-        &__duration {
-            color: #71829e;
-            font-weight: 700;
-            font-size: 20px;
-            opacity: 0.5;
-        }
-        &__time {
-            margin-top: 2px;
-            color: #71829e;
-            font-weight: 700;
-            font-size: 16px;
-            opacity: 0.7;
-        }
-    }
-    .progress__bar {
-        height: 6px;
-        width: 100%;
-        cursor: pointer;
-        background-color: #d0d8e6;
-        display: inline-block;
-        border-radius: 10px;
-    }
-    .progress__current {
-        height: inherit;
-        width: 0%;
-        background-color: #a3b3ce;
-        border-radius: 10px;
-    }
-
-    .album-info {
+    &__duration {
         color: #71829e;
-        flex: 1;
-        padding-right: 60px;
-        user-select: none;
-
-        @media screen and (max-width: 576px), (max-height: 500px)  {
-            padding-right: 30px;
-        }
-
-        &__name {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 12px;
-            line-height: 1.3em;
-            @media screen and (max-width: 576px), (max-height: 500px) {
-                font-size: 18px;
-                margin-bottom: 9px;
-            }
-        }
-        &__track {
-            font-weight: 400;
-            font-size: 20px;
-            opacity: 0.7;
-            line-height: 1.3em;
-            min-height: 52px;
-            @media screen and (max-width: 576px), (max-height: 500px)  {
-                font-size: 18px;
-                min-height: 50px;
-            }
+        font-weight: 700;
+        font-size: 20px;
+        opacity: 0.5;
+    }
+    &__time {
+        margin-top: 2px;
+        color: #71829e;
+        font-weight: 700;
+        font-size: 16px;
+        opacity: 0.7;
+    }
+}
+.progress__bar {
+    height: 6px;
+    width: 100%;
+    cursor: pointer;
+    background-color: #d0d8e6;
+    display: inline-block;
+    border-radius: 10px;
+}
+.progress__current {
+    height: inherit;
+    width: 0%;
+    background-color: #a3b3ce;
+    border-radius: 10px;
+}
+.album-info {
+    color: #71829e;
+    flex: 1;
+    padding-right: 60px;
+    user-select: none;
+    @media screen and (max-width: 576px), (max-height: 500px)  {
+        padding-right: 30px;
+    }
+    &__name {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 12px;
+        line-height: 1.3em;
+        @media screen and (max-width: 576px), (max-height: 500px) {
+            font-size: 18px;
+            margin-bottom: 9px;
         }
     }
+    &__track {
+        font-weight: 400;
+        font-size: 20px;
+        opacity: 0.7;
+        line-height: 1.3em;
+        min-height: 52px;
+        @media screen and (max-width: 576px), (max-height: 500px)  {
+            font-size: 18px;
+            min-height: 50px;
+        }
+    }
+}
 </style>
