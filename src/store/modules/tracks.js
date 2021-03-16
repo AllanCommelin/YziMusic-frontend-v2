@@ -21,11 +21,23 @@ const mutations = {
         state.play = false
         state.playingTrack.audio.pause()
     },
+    RESET_PLAYING_TRACK (state) {
+        state.play = false
+        state.playingTrack = null
+    },
     SET_PLAYING_TRACK (state, playingTrack) {
-        state.playingTrack = {
-            track: playingTrack,
-            audio: new Audio('data:'+ playingTrack.contentType +';base64,'+playingTrack.audio),
+        if (!state.playingTrack) {
+            // If we haven't playingTrack
+            state.playingTrack = {
+                track: playingTrack,
+                audio: new Audio('data:'+ playingTrack.contentType +';base64,'+playingTrack.audio),
+            }
+        } else {
+            // If we have playingTrack
+            state.playingTrack.track = playingTrack
+            state.playingTrack.audio.src = 'data:'+ playingTrack.contentType +';base64,'+playingTrack.audio
         }
+
     }
 }
 
@@ -38,6 +50,9 @@ const actions = {
     },
     setPause: ({commit}) => {
         commit('SET_PAUSE')
+    },
+    resetPlayingTrack: ({commit}) => {
+        commit('RESET_PLAYING_TRACK')
     },
     setPlayingTrack: ({commit}, payload) => {
         commit('SET_PLAYING_TRACK', payload)

@@ -101,9 +101,14 @@
                                 <span class="font-medium italic text-white text-xs">{{ user.username }}</span>
                             </div>
                             <div class="flex w-1/4 items-center justify-end">
-                                <button @click="playTrack(track._id)" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
-                                    <i v-if="play && playingTrack.track._id === track._id" class="fas fa-pause text-xs"></i>
-                                    <i v-else class="fas fa-play text-xs"></i>
+                                <button v-if="play && playingTrack.track._id === track._id" @click="pauseTrack" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
+                                    <i class="fas fa-pause text-xs"></i>
+                                </button>
+                                <button v-else-if="!play && playingTrack && playingTrack.track._id === track._id" @click="playTrack()" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
+                                    <i class="fas fa-play text-xs"></i>
+                                </button>
+                                <button v-else @click="playTrack(track._id)" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
+                                    <i class="fas fa-play text-xs"></i>
                                 </button>
                             </div>
                         </li>
@@ -252,14 +257,25 @@
             getAge: function (date) {
                 return moment().diff(moment(date),'year')
             },
-            playTrack: function (trackId) {
-                Vue.prototype.$http.get('http://localhost:6985/api/tracks/'+trackId)
-                    .then(res => {
-                        this.$store.dispatch('Tracks/setPlayingTrack', res.data.data)
-                    })
-                    .catch(() => {
-                        //Todo: catch error
-                    })}
+            playTrack: function (trackId = null) {
+                if (trackId) {
+                    // If we haven't already playing track
+                    // Get track by track id
+                    Vue.prototype.$http.get('http://localhost:6985/api/tracks/'+trackId)
+                        .then(res => {
+                            this.$store.dispatch('Tracks/setPlayingTrack', res.data.data)
+                        })
+                        .catch(() => {
+                            //Todo: catch error
+                        })
+                } else {
+                    // We have track, set play
+                    this.$store.dispatch('Tracks/setPlay')
+                }
+            },
+            pauseTrack: function () {
+                this.$store.dispatch('Tracks/setPause')
+            }
         }
     }
 </script>
