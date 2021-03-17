@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="relative text-left font-black uppercase italic text-5xl shadow-title title--outline mb-4">Réglage</h1>
+        <h1 class="relative text-left font-black uppercase italic text-5xl shadow-title title--outline mb-4">Réglages</h1>
         <div>
             <div class="relative">
                 <button @click="settingsDropdown = !settingsDropdown"

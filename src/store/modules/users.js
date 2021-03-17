@@ -21,7 +21,7 @@ const state = {
         appleMusicLink: '',
         soundcloudLink: '',
         banished: false,
-        likes: 0,
+        likes: [],
         profilePicture: null,
         creationDate: null,
     },
@@ -105,8 +105,10 @@ const actions = {
     registerUser: function (store) {
         store.commit('initError')
         store.commit('setUserField', {creationDate: new Date()})
+        let formData = {...store.state.user}
+        delete formData.likes
         if (!store.state.pendingUser) {
-            Vue.prototype.$http.post('http://localhost:6985/auth/register', store.state.user)
+            Vue.prototype.$http.post('http://localhost:6985/auth/register', formData)
                 .then(res => {
                     //TODO: redirect to login screen with alert sucess
                     console.log(`User ${res.data.user.username} is register . Go to login`)

@@ -1,31 +1,31 @@
 <template>
     <div v-if="playingTrack" class="fixed bottom-0 left-0 right-0 flex-col items-center px-4 py-2 bg-main z-50">
-        <div class="flex justify-center items-center text-white">
-            <span class="font-bold">{{ playingTrack.track.name }}</span> - {{ playingTrack.track.user.username }}
+        <div class="flex justify-center items-center text-white text-sm">
+            <span class="font-bold">{{ playingTrack.track.name }} </span> - {{ playingTrack.track.user.username }}
         </div>
-        <div class="flex justify-around items-center">
-            <button class="mx-1 border-1 border-white hover:text-white hover:text-white text-white font-bold rounded-full flex justify-center items-center h-8 w-8">
-                <i class="fas fa-backward text-xs"></i>
+        <div class="flex justify-center items-center my-1">
+            <button v-on:click="toPlayForward" class="mx-1 border-1 border-white hover:text-white hover:text-white text-white font-bold rounded-full flex justify-center items-center h-6 w-6">
+                <i class="fas fa-backward icons-player"></i>
             </button>
-            <button v-on:click="toPause" v-if="play" class="mx-1 border-1 text-white hover:text-white hover:text-white text-white font-bold rounded-full flex justify-center items-center h-8 w-8">
-                <i class="fas fa-pause text-xs"></i>
+            <button v-on:click="toPause" v-if="play" class="mx-1 border-1 text-white hover:text-white hover:text-white text-white font-bold rounded-full flex justify-center items-center h-6 w-6">
+                <i class="fas fa-pause icons-player"></i>
             </button>
-            <button v-on:click="toPlay" v-else class="mx-1 border-1 text-white hover:text-white hover:text-white text-white font-bold rounded-full flex justify-center items-center h-8 w-8">
-                <i class="fas fa-play text-xs"></i>
+            <button v-on:click="toPlay" v-else class="mx-1 border-1 text-white hover:text-white hover:text-white text-white font-bold rounded-full flex justify-center items-center h-6 w-6">
+                <i class="fas fa-play icons-player"></i>
             </button>
-            <button class="mx-1 border-1 botext-white hover:text-white hover:text-white text-white font-bold rounded-full flex justify-center items-center h-8 w-8">
-                <i class="fas fa-forward text-xs"></i>
+            <button v-on:click="toPlayBackward" class="mx-1 border-1 botext-white hover:text-white hover:text-white text-white font-bold rounded-full flex justify-center items-center h-6 w-6">
+                <i class="fas fa-forward icons-player"></i>
             </button>
         </div>
         <div>
             <div class="progress" ref="progress">
                 <div class="progress__top">
-                    <div class="progress__duration">{{ duration }}</div>
+                    <div class="progress__time text-white font-500 text-sm">{{ currentTime }}</div>
+                    <div class="progress__duration text-white font-bold text-sm">{{ duration }}</div>
                 </div>
                 <div class="progress__bar" @click="clickProgress">
-                    <div class="progress__current" :style="{ width : barWidth }"></div>
+                    <div class="progress__current bg-ym-blue" :style="{ width : barWidth }"></div>
                 </div>
-                <div class="progress__time">{{ currentTime }}</div>
             </div>
             <div v-cloak></div>
         </div>
@@ -70,6 +70,12 @@ export default {
         },
         toPlay: function () {
             this.$store.dispatch('Tracks/setPlay')
+        },
+        toPlayForward: function () {
+            this.$store.dispatch('Tracks/playForward')
+        },
+        toPlayBackward: function () {
+            this.$store.dispatch('Tracks/playBackward')
         },
         generateTime: function () {
             // Get width of progress bar
@@ -130,17 +136,11 @@ export default {
         justify-content: space-between;
     }
     &__duration {
-        color: #71829e;
-        font-weight: 700;
-        font-size: 20px;
-        opacity: 0.5;
+        opacity: 0.8;
     }
     &__time {
         margin-top: 2px;
-        color: #71829e;
-        font-weight: 700;
-        font-size: 16px;
-        opacity: 0.7;
+        opacity: 0.8;
     }
 }
 .progress__bar {
@@ -154,7 +154,6 @@ export default {
 .progress__current {
     height: inherit;
     width: 0%;
-    background-color: #a3b3ce;
     border-radius: 10px;
 }
 .album-info {
@@ -186,5 +185,12 @@ export default {
             min-height: 50px;
         }
     }
+}
+.icons-player {
+    font-size: .5rem;
+}
+
+.button:focus {
+    outline: none;
 }
 </style>

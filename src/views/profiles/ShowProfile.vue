@@ -1,7 +1,7 @@
 <template>
     <div class="mb-16 flex flex-wrap">
         <div class="profile-header w-full lg:w-1/4 relative">
-            <div class="absolute setting-btn" v-on:click="goToSetting">
+            <div v-if="isAuthUser" class="absolute setting-btn" v-on:click="goToSetting">
                 <i class="fas fa-cog"></i>
             </div>
             <div class="mb-6">
@@ -79,9 +79,13 @@
                     </button>
                 </div>
                 <div class="flex justify-center w-100">
-                    <button class="max-w-56 w-full ml-0 sm:ml-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-main font-normal py-2 px-6">
-                        {{ user.likes }}
+                    <button v-if="!alreadyLike" v-on:click="likeUser" class="max-w-56 w-full ml-0 sm:ml-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-main font-normal py-2 px-6">
+                        {{ user.likes.length }}
                         <i class="fas fa-thumbs-up text-xl text-main"/>
+                    </button>
+                    <button v-else v-on:click="unlikeUser" class="max-w-56 w-full ml-0 sm:ml-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-white bg-main-light font-normal py-2 px-6">
+                        {{ user.likes.length }}
+                        <i class="fas fa-thumbs-up text-xl text-white"/>
                     </button>
                 </div>
             </template>
@@ -204,6 +208,9 @@
                 playingTrack: state => state.Tracks.playingTrack,
                 play: state => state.Tracks.play,
             }),
+            alreadyLike: function () {
+                return this.user.likes.includes(this.authUser._id)
+            },
             imageProfile: function () {
                 return this.user.profilePicture ?
                     'data:'+ this.user.profilePicture.contentType +';base64,'+ this.user.profilePicture.picture
@@ -236,6 +243,26 @@
             else this.user = this.authUser
         },
         methods: {
+            likeUser: function () {
+                Vue.prototype.$http.put('http://localhost:6985/api/users/like', {userId: this.user._id})
+                    .then(res => {
+                        // update user
+                        this.user = res.data.data
+                    })
+                    .catch(() => {
+                        //Todo: catch error
+                    })
+            },
+            unlikeUser: function () {
+                Vue.prototype.$http.put('http://localhost:6985/api/users/unlike', {userId: this.user._id})
+                    .then(res => {
+                        // update user
+                        this.user = res.data.data
+                    })
+                    .catch(() => {
+                        //Todo: catch error
+                    })
+            },
             goToSetting: function () {
                 this.$router.push({name:'Profile.setting'})
             },
@@ -257,25 +284,21 @@
             getAge: function (date) {
                 return moment().diff(moment(date),'year')
             },
-            playTrack: function (trackId = null) {
+            playTrack: async function (trackId = null) {
+                await this.$store.dispatch('Tracks/setTracks', this.user.tracks)
                 if (trackId) {
                     // If we haven't already playing track
-                    // Get track by track id
-                    Vue.prototype.$http.get('http://localhost:6985/api/tracks/'+trackId)
-                        .then(res => {
-                            this.$store.dispatch('Tracks/setPlayingTrack', res.data.data)
-                        })
-                        .catch(() => {
-                            //Todo: catch error
-                        })
+                    // Set playing track
+                    await this.$store.dispatch('Tracks/setPlayingTrack', trackId)
+
                 } else {
                     // We have track, set play
-                    this.$store.dispatch('Tracks/setPlay')
+                    await this.$store.dispatch('Tracks/setPlay')
                 }
             },
             pauseTrack: function () {
                 this.$store.dispatch('Tracks/setPause')
-            }
+            },
         }
     }
 </script>

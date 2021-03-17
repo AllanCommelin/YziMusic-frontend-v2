@@ -10,6 +10,25 @@
                     <h3 class="text-gray-800 text-2xl font-medium text-center">un projet musical</h3>
                 </div>
                 <div class="bg-gray-200 w-full h-full p-8 flex flex-col items-center">
+                    <div class="sm:w-1/2 w-full sm:pr-2 text-left my-2">
+                        <label class="label --light" for="name">Nom du projet</label>
+                        <input id="name" v-model="name" class="input --light " required name="name" type="text" placeholder="Titre du projet"/>
+                    </div>
+                    <div class="sm:w-1/2 w-full sm:pr-2 text-left my-2">
+                        <label class="label --light" for="date">Date de sortie</label>
+                        <input id="date" v-model="date" class="input --light shadow-lg" required name="date" type="date"/>
+                    </div>
+                    <div class="sm:w-1/2 w-full sm:pr-2 text-left my-2">
+                        <label class="label --light" for="tag">Genre musical</label>
+                        <div class="relative">
+                            <select id="tag" v-model="tag" class="block appearance-none w-full bg-white shadow-lg border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded-lg leading-tights outline-none">
+                                <option v-for="type in musicsTypes" v-bind:key="type.value" :value="type.value">{{ type.label }}</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                        </div>
+                    </div>
                     <div class="flex w-full items-center justify-center bg-grey-lighter my-auto">
                         <label class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-main hover:text-white">
                             <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -30,13 +49,18 @@
 
 <script>
     import Vue from "vue";
+    import MusicsType from "@/store/constants/MusicsTypes";
 
     export default {
         name: "modalUploadPicture",
         data () {
             return {
+                musicsTypes: MusicsType,
                 selectedTrack: "",
                 tracks: [],
+                name: '',
+                tag: '',
+                date: null,
                 track: null,
                 audio: null
             }
@@ -52,6 +76,9 @@
             onUploadFile() {
                 const formData = new FormData();
                 formData.append("track", this.selectedTrack);  // appending file
+                formData.append("name", this.name);  // appending name
+                formData.append("tag", this.tag);  // appending tag
+                formData.append("date", this.date);  // appending date
 
                 // sending file to the backend
                 Vue.prototype.$http.post('http://localhost:6985/api/tracks/upload/', formData)

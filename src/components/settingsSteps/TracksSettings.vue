@@ -70,6 +70,7 @@
                 Vue.prototype.$http.delete('http://localhost:6985/api/tracks/'+id)
                     .then(res => {
                         // Delete track by id of local tracks
+                        //todo supprime pas le bon à voir visuellement
                         this.tracks.splice(this.tracks.findIndex(function(track){
                             return track.id === id;
                         }), 1);

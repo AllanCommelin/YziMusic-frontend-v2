@@ -21,16 +21,27 @@ body, html {
     font-weight: 500;
 }
 
+.input.--light {
+    @apply text-gray-700;
+    background-color: white !important;
+}
+
 .input:focus {
     @apply outline-none shadow-outline;
 }
 .input::placeholder {
     color: rgba(255, 255, 255, .25);
 }
+.input.--light::placeholder {
+    color: rgba(0, 0, 0, 0.25);
+}
 
 /* YziMusic label */
 .label {
     @apply text-white font-bold uppercase text-sm;
+}
+.label.--light {
+    @apply text-gray-700;
 }
 
 
