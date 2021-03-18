@@ -2,9 +2,9 @@
     <div class="main bg-ym-black relative">
         <nav class="flex items-center justify-between flex-wrap bg-ym-black p-6 fixed w-full z-10 top-0">
             <div class="flex items-center flex-shrink-0 text-white mr-6">
-                <a class="text-white no-underline hover:text-white hover:no-underline" href="/">
+                <button class="text-white no-underline hover:text-white hover:no-underline" v-on:click="goToHome">
                     <img class="h-5" src="../assets/images/logo.svg" alt="YziMusic logo"/>
-                </a>
+                </button>
             </div>
             <div class="block lg:hidden">
                 <button v-on:click="toggleNav"
@@ -72,6 +72,9 @@
             toggleNav () {
                 // Show or hidden mobile nav
                 this.navToggle = !this.navToggle
+            },
+            goToHome: function () {
+                this.$router.push({name:'Home'})
             },
             logout () {
                 this.logOutUser()
