@@ -80,11 +80,11 @@
                 </div>
                 <div class="flex justify-center w-100">
                     <button v-if="!alreadyLike" v-on:click="likeUser" class="max-w-56 w-full ml-0 sm:ml-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-main font-normal py-2 px-6">
-                        {{ user.likes.length }}
+                        {{ user.likes ? user.likes.length : 0 }}
                         <i class="fas fa-thumbs-up text-xl text-main"/>
                     </button>
-                    <button v-else v-on:click="unlikeUser" class="max-w-56 w-full ml-0 sm:ml-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-white bg-main-light font-normal py-2 px-6">
-                        {{ user.likes.length }}
+                    <button v-else v-on:click="unlikeUser" class="max-w-56 w-full ml-0 sm:ml-2 uppercase rounded-full border-3 border-solid border-main-light italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-white bg-main-light font-normal py-2 px-6">
+                        {{ user.likes ? user.likes.length : 0 }}
                         <i class="fas fa-thumbs-up text-xl text-white"/>
                     </button>
                 </div>
@@ -198,7 +198,8 @@
                 constMusicsTypes: MusicsType,
                 userBanner: require('../../assets/images/default-banner.png'),
                 showEmail: false,
-                showInfos: false
+                showInfos: false,
+                alreadyLike: false
             }
         },
         computed: {
@@ -208,9 +209,6 @@
                 playingTrack: state => state.Tracks.playingTrack,
                 play: state => state.Tracks.play,
             }),
-            alreadyLike: function () {
-                return this.user.likes.includes(this.authUser._id)
-            },
             imageProfile: function () {
                 return this.user.profilePicture ?
                     'data:'+ this.user.profilePicture.contentType +';base64,'+ this.user.profilePicture.picture
@@ -272,6 +270,7 @@
                     .then(res => {
                         // Init user
                         this.user = res.data.data
+                        this.alreadyLike = this.user.likes.includes(this.authUser._id)
                     })
                     .catch(() => {
                         //Todo: catch error
@@ -285,16 +284,17 @@
                 return moment().diff(moment(date),'year')
             },
             playTrack: async function (trackId = null) {
-                await this.$store.dispatch('Tracks/setTracks', this.user.tracks)
-                if (trackId) {
-                    // If we haven't already playing track
-                    // Set playing track
-                    await this.$store.dispatch('Tracks/setPlayingTrack', trackId)
+                await this.$store.dispatch('Tracks/setTracks', this.user.tracks).then(() => {
+                    if (trackId) {
+                        // If we haven't already playing track
+                        // Set playing track
+                        this.$store.dispatch('Tracks/setPlayingTrack', trackId)
 
-                } else {
-                    // We have track, set play
-                    await this.$store.dispatch('Tracks/setPlay')
-                }
+                    } else {
+                        // We have track, set play
+                        this.$store.dispatch('Tracks/setPlay')
+                    }
+                })
             },
             pauseTrack: function () {
                 this.$store.dispatch('Tracks/setPause')
