@@ -83,7 +83,7 @@
                 // sending file to the backend
                 Vue.prototype.$http.post('http://localhost:6985/api/tracks/upload/', formData)
                     .then(res => {
-                        console.log(res);
+                        this.$store.dispatch('User/setUserTrack', {_id: res.data.data._id, name: res.data.data.name})
                         // update list of tracks in store
                         this.closeModal();
                     })

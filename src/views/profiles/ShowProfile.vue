@@ -284,7 +284,7 @@
                 return moment().diff(moment(date),'year')
             },
             playTrack: async function (trackId = null) {
-                await this.$store.dispatch('Tracks/setTracks', this.user.tracks).then(() => {
+                await this.$store.dispatch('Tracks/setTracks', {tracks: this.user.tracks, trackId: trackId}).then(() => {
                     if (trackId) {
                         // If we haven't already playing track
                         // Set playing track

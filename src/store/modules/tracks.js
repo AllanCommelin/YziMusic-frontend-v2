@@ -53,9 +53,12 @@ const mutations = {
 }
 
 const actions = {
-    setTracks: ({commit}, payload) => {
-        commit('SET_TRACKS', payload)
-        if (state.playingTrack) commit('SET_CURRENT_TRACK')
+    setTracks: (store, payload) => {
+        store.commit('SET_TRACKS', payload.tracks)
+        if (state.playingTrack && !state.tracks.some(track => track._id === state.playingTrack.track._id)) {
+            store.dispatch('setPlayingTrack', payload.trackId)
+        }
+        else if (state.playingTrack) store.commit('SET_CURRENT_TRACK')
     },
     setPlay: ({commit}) => {
         commit('SET_PLAY')
@@ -103,6 +106,7 @@ const actions = {
     setPlayingTrack: ({commit}, trackId) => {
         Vue.prototype.$http.get('http://localhost:6985/api/tracks/'+trackId)
             .then(res => {
+                console.log('setplaying')
                 commit('SET_PLAYING_TRACK', res.data.data)
                 commit('SET_CURRENT_TRACK')
                 commit('SET_PLAY')

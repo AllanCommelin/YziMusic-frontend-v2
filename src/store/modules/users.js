@@ -36,75 +36,81 @@ const getters = {
 }
 
 const mutations = {
-    setUser (state, user) {
+    SET_USER (state, user) {
         state.user = user
     },
-    setUserField (state, payload) {
+    SET_USER_FIELD (state, payload) {
       Object.keys(payload).forEach(field => {
           state.user[field] = payload[field]
       })
     },
-    setError (state, error) {
+    SET_USER_TRACK (state, payload) {
+        state.user.tracks.push(payload)
+    },
+    SET_ERROR (state, error) {
         state.errorLogin = error ? error : 'Une erreur est survenue'
     },
-    initError (state) {
+    INIT_ERROR (state) {
         state.errorLogin = false
     },
-    setIsLogInTrue (state) {
+    SET_IS_LOG_IN_TRUE (state) {
         state.is_login = true
         localStorage.setItem(process.env.VUE_APP_AUTH_USER, true)
     },
-    setIsLogInFalse (state) {
+    SET_IS_LOG_IN_FALSE (state) {
         state.is_login = false
         localStorage.removeItem(process.env.VUE_APP_AUTH_USER)
     },
-    setPendingUserTrue (state) {
+    SET_PENDING_USER_TRUE (state) {
         state.pendingUser = true
     },
-    setPendingUserFalse (state) {
+    SET_PENDING_USER_FALSE (state) {
         state.pendingUser = false
     }
 }
 
 const actions = {
-    SET_USER_FIELD: ({commit}, payload) => {
-        commit('setUserField', payload)
+    setUserField: ({commit}, payload) => {
+        commit('SET_USER_FIELD', payload)
+    },
+    setUserTrack: ({commit}, payload) => {
+        commit('SET_USER_TRACK', payload)
     },
     loadUser: function (store) {
-        store.commit('setPendingUserTrue')
+        store.commit('SET_PENDING_USER_TRUE')
         Vue.prototype.$http.get('http://localhost:6985/auth/me')
             .then(res => {
-                store.commit('setUserField', res.data.data)
-                store.commit('setIsLogInTrue')
+                store.commit('SET_USER_FIELD', res.data.data)
+                store.commit('SET_IS_LOG_IN_TRUE')
             })
             .catch(() => {})
-        store.commit('setPendingUserFalse')
+        store.commit('SET_PENDING_USER_FALSE')
     },
     logInUser: function (store, {email, password}) {
-        store.commit('initError')
+        store.commit('INIT_ERROR')
         if(!store.state.pendingUser) {
-            store.commit('setPendingUserTrue')
+            store.commit('SET_PENDING_USER_TRUE')
             Vue.prototype.$http.post('http://localhost:6985/auth/login', {
                 email: email,
                 password: password
             })
                 .then(res => {
-                    store.commit('setUserField', res.data.data.user)
-                    store.commit('setIsLogInTrue')
+                    store.commit('SET_USER_FIELD', res.data.data.user)
+                    store.commit('SET_IS_LOG_IN_TRUE')
                 })
                 .catch(() => {
                     store.dispatch('errorUser')
                 })
-            store.commit('setPendingUserFalse')
+            store.commit('SET_PENDING_USER_FALSE')
         }
     },
     logOutUser: function (store) {
-        store.commit('setIsLogInFalse')
-        store.commit('setUser', {})
+        store.commit('SET_IS_LOG_IN_FALSE')
+        store.commit('SET_USER', {})
     },
     registerUser: function (store) {
-        store.commit('initError')
-        store.commit('setUserField', {creationDate: new Date()})
+        store.commit('INIT_ERROR')
+        store.commit('SET_USER_FIELD', {creationDate: new Date()})
         let formData = {...store.state.user}
         delete formData.likes
         if (!store.state.pendingUser) {
@@ -116,13 +122,13 @@ const actions = {
                 .catch(() => {
                     store.dispatch('errorUser')
                 })
-            store.commit('setPendingUserFalse')
+            store.commit('SET_PENDING_USER_FALSE')
         }
     },
     errorUser (store, error = null) {
-        store.commit('setError', error)
+        store.commit('SET_ERROR', error)
         setTimeout(function () {
-            store.commit('initError')
+            store.commit('INIT_ERROR')
         }, 300000)
     }
 }
