@@ -15,6 +15,26 @@ body, html {
     min-height: 100vh;
 }
 
+button:focus {
+    outline: none;
+}
+
+.btn-icon-link {
+    @apply flex items-center text-white mx-4;
+}
+
+.btn-icon-link img {
+    height: 1rem;
+}
+
+.btn-icon-link span {
+    font-family: 'Montserrat';
+    font-style: italic;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-left: .35rem;
+}
+
 /* YziMusic Input */
 .input {
     @apply mt-2 bg-ym-light-black rounded-lg py-2 px-4 block w-full appearance-none leading-normal text-white;

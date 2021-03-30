@@ -8,6 +8,11 @@ const routes = [
         component: ShowProfile
     },
     {
+        path: '/me',
+        name: 'Profile.me',
+        component: ShowProfile
+    },
+    {
         path: '/me/setting',
         name: 'Profile.setting',
         component: SettingProfile

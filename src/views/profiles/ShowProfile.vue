@@ -234,8 +234,14 @@
             }
         },
         mounted () {
+            // Try to access to his profile
+            if (this.$route.name === 'Profile.me') {
+                // If not log in, redirect to login page
+                if (!this.is_login) this.$router.push({name: 'Login'})
+                this.isAuthUser = this.authUser._id
+            }
             // Checks if the authenticated user, if it is, is the same as the user you want to see
-            if (this.is_login) this.isAuthUser = this.authUser._id === this.$route.params.id
+            else if (this.is_login) this.isAuthUser = this.authUser._id === this.$route.params.id
             // If not make a call api to get user
             if (!this.isAuthUser) this.getUser()
             else this.user = this.authUser
