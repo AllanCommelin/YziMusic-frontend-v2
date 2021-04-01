@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mx-auto max-w-md">
         <h1 class="text-3xl my-4 font-bold text-white font-black">Connexion</h1>
         <div v-if="error" class="my-2">
             <alert :msg='error' type="error"></alert>

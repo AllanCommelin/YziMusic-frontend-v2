@@ -35,6 +35,7 @@ module.exports = {
                 'ym-blue': '#1cb4ff',
                 'ym-light-blue': '#A1C6EA',
                 'ym-black': '#0D0D0D',
+                'ym-sm-light-black': '#191919',
                 'ym-light-black': '#292929',
             },
             spacing: {

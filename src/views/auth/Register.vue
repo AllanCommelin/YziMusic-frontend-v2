@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mx-auto max-w-4xl">
         <div>
             <Step1 v-if="step === 1" @increment="incrementStep" @decrement="decrementStep"/>
             <Step2 v-else-if="step === 2" @increment="incrementStep" @decrement="decrementStep"/>

@@ -1,31 +1,46 @@
 <template>
     <div>
-        <h2 class="text-3xl mb-6 font-bold text-white">Streaming et social</h2>
-        <h2 class="text-3xl mb-6 font-bold text-white">Vos liens</h2>
+        <h2 class="text-3xl mb-6 font-bold text-white">Liens vers vos réseaux</h2>
         <h3 class="text-xl text-ym-blue font-bold mb-4">Réseaux sociaux</h3>
         <form class="flex flex-wrap text-ym-grey">
-            <div class="grid gap-4 grid-cols-2 w-full">
-                <label for="facebook">Facebook</label>
-                <input v-model="facebookLink" class="input" id="facebook" name="facebookLink"/>
-                <label for="twitter">Twitter</label>
-                <input v-model="twitterLink" class="input" id="twitter" name="twitterLink"/>
-                <label for="instagram">Instagram</label>
-                <input v-model="instagramLink" class="input" id="instagram" name="instagramLink"/>
-                <label for="youtube">Youtube</label>
-                <input v-model="youtubeLink" class="input" id="youtube" name="youtubeLink"/>
+            <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 w-full">
+                <div class="w-full text-left my-2">
+                    <label class="label" for="facebook">Facebook</label>
+                    <input v-model="facebookLink" class="input" id="facebook" name="facebookLink"/>
+                </div>
+                <div class="w-full text-left my-2">
+                    <label class="label" for="twitter">Twitter</label>
+                    <input v-model="twitterLink" class="input" id="twitter" name="twitterLink"/>
+                </div>
+                <div class="w-full text-left my-2">
+                    <label class="label" for="instagram">Instagram</label>
+                    <input v-model="instagramLink" class="input" id="instagram" name="instagramLink"/>
+                </div>
+                <div class="w-full text-left my-2">
+                    <label class="label" for="youtube">Youtube</label>
+                    <input v-model="youtubeLink" class="input" id="youtube" name="youtubeLink"/>
+                </div>
             </div>
         </form>
         <h3 class="text-xl text-ym-blue font-bold my-4">Streaming</h3>
         <div class="flex flex-wrap text-ym-grey">
-            <div class="grid gap-4 grid-cols-2 w-full">
-                <label for="spotify">Spotify</label>
-                <input v-model="spotifyLink" class="input" id="spotify" name="spotifyLink"/>
-                <label for="deezer">Deezer</label>
-                <input v-model="deezerLink" class="input" id="deezer" name="deezerLink"/>
-                <label for="applemusic">Apple Music</label>
-                <input v-model="appleMusicLink" class="input" id="applemusic" name="appleMusicLink"/>
-                <label for="soundcloud">Soundcloud</label>
-                <input v-model="soundcloudLink" class="input" id="soundcloud" name="soundcloudLink"/>
+            <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 w-full">
+                <div class="w-full text-left my-2">
+                    <label class="label" for="spotify">Spotify</label>
+                    <input v-model="spotifyLink" class="input" id="spotify" name="spotifyLink"/>
+                </div>
+                <div class="w-full text-left my-2">
+                    <label class="label" for="deezer">Deezer</label>
+                    <input v-model="deezerLink" class="input" id="deezer" name="deezerLink"/>
+                </div>
+                <div class="w-full text-left my-2">
+                    <label class="label" for="applemusic">Apple Music</label>
+                    <input v-model="appleMusicLink" class="input" id="applemusic" name="appleMusicLink"/>
+                </div>
+                <div class="w-full text-left my-2">
+                    <label class="label" for="soundcloud">Soundcloud</label>
+                    <input v-model="soundcloudLink" class="input" id="soundcloud" name="soundcloudLink"/>
+                </div>
             </div>
         </div>
         <div class="mt-10 mb-16 w-full flex justify-center">

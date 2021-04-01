@@ -1,6 +1,6 @@
 <template>
     <div class="mb-16 flex flex-wrap">
-        <div class="profile-header w-full lg:w-1/4 relative">
+        <div class="profile-header w-full lg:w-1/3 lg:-m-10 lg:p-10 lg:bg-ym-sm-light-black relative">
             <div v-if="isAuthUser" class="absolute setting-btn" v-on:click="goToSetting">
                 <i class="fas fa-cog"></i>
             </div>
@@ -66,113 +66,115 @@
                         <span class="italic font-thin text-sm text-white">E-mail : </span>
                         <div>
                             <span v-if="showEmail" class="font-bold text-lg text-white">{{ user.email }}</span>
-                            <button v-else v-on:click="displayEmail" class="uppercase text-sm italic font-bold w-auto btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-main hover:bg-main text-white font-normal py-2 px-4 rounded">Voir</button>
+                            <button v-else v-on:click="displayEmail" class="uppercase text-sm italic font-bold w-auto btn-primary transition duration-300 ease-in-out focus:outline-none bg-main hover:bg-main text-white font-normal py-2 px-4 rounded">Voir</button>
                         </div>
                     </div>
             </div>
         </div>
             <template v-if="!isAuthUser">
                 <div class="flex justify-center w-100">
-                    <button class="max-w-56 w-full mr-0 sm:mr-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-main font-normal py-2 px-6">
-                        Contacter
+                    <button class="max-w-56 w-full mr-0 sm:mr-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out text-main font-normal py-2 px-6">
                         <i class="fas fa-paper-plane text-xl text-main"></i>
+                        Contacter
                     </button>
                 </div>
                 <div class="flex justify-center w-100">
-                    <button v-if="!alreadyLike" v-on:click="likeUser" class="max-w-56 w-full ml-0 sm:ml-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-main font-normal py-2 px-6">
+                    <button v-if="!alreadyLike" v-on:click="likeUser" class="max-w-56 w-full ml-0 sm:ml-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out text-main font-normal py-2 px-6">
                         {{ user.likes ? user.likes.length : 0 }}
                         <i class="fas fa-thumbs-up text-xl text-main"/>
                     </button>
-                    <button v-else v-on:click="unlikeUser" class="max-w-56 w-full ml-0 sm:ml-2 uppercase rounded-full border-3 border-solid border-main-light italic font-bold mt-4 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline text-white bg-main-light font-normal py-2 px-6">
+                    <button v-else v-on:click="unlikeUser" class="max-w-56 w-full ml-0 sm:ml-2 uppercase rounded-full border-3 border-solid border-main-light italic font-bold mt-4 btn-primary transition duration-300 ease-in-out text-white bg-main-light font-normal py-2 px-6">
                         {{ user.likes ? user.likes.length : 0 }}
                         <i class="fas fa-thumbs-up text-xl text-white"/>
                     </button>
                 </div>
             </template>
         </div>
-        <div class="profile-content w-full lg:w-3/4">
-            <div class="w-full order-1 py-2 bg-ym-black lg:w-3/6 lg:order-2 text-left">
-                <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">À propos</h2>
-                <p class="text-white text-lg font-thin mb-4">{{ user.description }}</p>
-            </div>
-            <div class="w-full order-1 py-2 bg-ym-black lg:w-3/6 lg:order-2 text-left">
-                <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Projets</h2>
-                <div>
-                    <ul>
-                        <li v-for="track in user.tracks" v-bind:key="track._id" class="flex w-full max-w-lg border-1 border-main-light py-2 px-4 rounded-lg my-2">
-                            <div class="flex flex-col w-3/4">
-                                <span class="uppercase font-black text-main-light">{{ track.name }}</span>
-                                <span class="font-medium italic text-white text-xs">{{ user.username }}</span>
-                            </div>
-                            <div class="flex w-1/4 items-center justify-end">
-                                <button v-if="play && playingTrack.track._id === track._id" @click="pauseTrack" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
-                                    <i class="fas fa-pause text-xs"></i>
-                                </button>
-                                <button v-else-if="!play && playingTrack && playingTrack.track._id === track._id" @click="playTrack()" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
-                                    <i class="fas fa-play text-xs"></i>
-                                </button>
-                                <button v-else @click="playTrack(track._id)" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
-                                    <i class="fas fa-play text-xs"></i>
-                                </button>
-                            </div>
-                        </li>
-                    </ul>
+        <div class="profile-content w-full lg:w-2/3 lg:pl-10">
+            <div class="w-10/12 max-w-3xl mx-auto">
+                <div class="w-full order-1 py-2 bg-ym-black lg:order-2 text-left">
+                    <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">À propos</h2>
+                    <p class="text-white text-lg font-thin mb-4">{{ user.description }}</p>
                 </div>
-            </div>
-            <div class="w-full order-3 py-2 bg-ym-black lg:w-1/6 lg:order-3 text-left">
-                <div>
-                    <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Réseaux sociaux</h2>
-                   <div class="flex flex-wrap justify-between py-4">
-                       <div v-if="user.facebookLink" class="text-center px-4">
-                           <a :href="user.facebookLink" class="text-center">
-                               <img src="../../assets/icons/facebook.png" class="icons-social mx-auto my-2" alt="logo facebook">
-                               <span class="text-white">Facebook</span>
-                           </a>
-                       </div>
-                       <div v-if="user.twitterLink" class="text-center px-4">
-                           <a :href="user.twitterLink" class="text-center">
-                               <img src="../../assets/icons/twitter.svg" class="icons-social mx-auto my-2" alt="logo twitter">
-                               <span class="text-white">Twitter</span>
-                           </a>
-                       </div>
-                       <div v-if="user.instagramLink" class="text-center px-4">
-                           <a :href="user.instagramLink" class="text-center">
-                               <img src="../../assets/icons/instagram.png" class="icons-social mx-auto my-2" alt="logo instagram">
-                               <span class="text-white">Instagram</span>
-                           </a>
-                       </div>
-                       <div v-if="user.youtubeLink" class="text-center px-4">
-                           <a :href="user.youtubeLink" class="text-center">
-                               <img src="../../assets/icons/youtube.png" class="icons-social mx-auto my-2" alt="logo youtube">
-                               <span class="text-white">YouTube</span>
-                           </a>
-                       </div>
-                   </div>
-                    <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Streaming</h2>
-                    <div class="flex flex-wrap justify-between py-4">
-                        <div v-if="user.spotifyLink" class="text-center px-4">
-                            <a :href="user.spotifyLink" class="text-center">
-                                <img src="../../assets/icons/spotify.png" class="icons-social mx-auto my-2" alt="logo spotify">
-                                <span class="text-white">Spotify</span>
-                            </a>
+                <div class="w-full order-1 py-2 bg-ym-black lg:order-2 text-left">
+                    <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Projets</h2>
+                    <div>
+                        <ul>
+                            <li v-for="track in user.tracks" v-bind:key="track._id" class="flex w-full max-w-lg border-1 border-main-light py-2 px-4 rounded-lg my-2">
+                                <div class="flex flex-col w-3/4">
+                                    <span class="uppercase font-black text-main-light">{{ track.name }}</span>
+                                    <span class="font-medium italic text-white text-xs">{{ user.username }}</span>
+                                </div>
+                                <div class="flex w-1/4 items-center justify-end">
+                                    <button v-if="play && playingTrack.track._id === track._id" @click="pauseTrack" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
+                                        <i class="fas fa-pause text-xs"></i>
+                                    </button>
+                                    <button v-else-if="!play && playingTrack && playingTrack.track._id === track._id" @click="playTrack()" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
+                                        <i class="fas fa-play text-xs"></i>
+                                    </button>
+                                    <button v-else @click="playTrack(track._id)" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
+                                        <i class="fas fa-play text-xs"></i>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="w-full order-3 py-2 bg-ym-black lg:order-3 text-left">
+                    <div>
+                        <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Réseaux sociaux</h2>
+                        <div class="flex flex-wrap justify-between py-4">
+                            <div v-if="user.facebookLink" class="text-center px-4">
+                                <a :href="user.facebookLink" class="text-center">
+                                    <img src="../../assets/icons/facebook.png" class="icons-social mx-auto my-2" alt="logo facebook">
+                                    <span class="text-white">Facebook</span>
+                                </a>
+                            </div>
+                            <div v-if="user.twitterLink" class="text-center px-4">
+                                <a :href="user.twitterLink" class="text-center">
+                                    <img src="../../assets/icons/twitter.svg" class="icons-social mx-auto my-2" alt="logo twitter">
+                                    <span class="text-white">Twitter</span>
+                                </a>
+                            </div>
+                            <div v-if="user.instagramLink" class="text-center px-4">
+                                <a :href="user.instagramLink" class="text-center">
+                                    <img src="../../assets/icons/instagram.png" class="icons-social mx-auto my-2" alt="logo instagram">
+                                    <span class="text-white">Instagram</span>
+                                </a>
+                            </div>
+                            <div v-if="user.youtubeLink" class="text-center px-4">
+                                <a :href="user.youtubeLink" class="text-center">
+                                    <img src="../../assets/icons/youtube.png" class="icons-social mx-auto my-2" alt="logo youtube">
+                                    <span class="text-white">YouTube</span>
+                                </a>
+                            </div>
                         </div>
-                        <div v-if="user.appleMusicLink" class="text-center px-4">
-                            <a :href="user.appleMusicLink" class="text-center">
-                                <img src="../../assets/icons/applemusic.png" class="icons-social mx-auto my-2" alt="logo applemusic">
-                                <span class="text-white">Apple Music</span>
-                            </a>
-                        </div>
-                        <div v-if="user.deezerLink" class="text-center px-4">
-                            <a :href="user.deezerLink" class="text-center">
-                                <img src="../../assets/icons/deezer.png" class="icons-social mx-auto my-2" alt="logo deezer">
-                                <span class="text-white">Deezer</span>
-                            </a>
-                        </div>
-                        <div v-if="user.soundcloudLink" class="text-center px-4">
-                            <a :href="user.soundcloudLink" class="text-center">
-                                <img src="../../assets/icons/soundcloud.png" class="icons-social mx-auto my-2" alt="logo soundcloud">
-                                <span class="text-white">SoundCloud</span>
-                            </a>
+                        <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Streaming</h2>
+                        <div class="flex flex-wrap justify-between py-4">
+                            <div v-if="user.spotifyLink" class="text-center px-4">
+                                <a :href="user.spotifyLink" class="text-center">
+                                    <img src="../../assets/icons/spotify.png" class="icons-social mx-auto my-2" alt="logo spotify">
+                                    <span class="text-white">Spotify</span>
+                                </a>
+                            </div>
+                            <div v-if="user.appleMusicLink" class="text-center px-4">
+                                <a :href="user.appleMusicLink" class="text-center">
+                                    <img src="../../assets/icons/applemusic.png" class="icons-social mx-auto my-2" alt="logo applemusic">
+                                    <span class="text-white">Apple Music</span>
+                                </a>
+                            </div>
+                            <div v-if="user.deezerLink" class="text-center px-4">
+                                <a :href="user.deezerLink" class="text-center">
+                                    <img src="../../assets/icons/deezer.png" class="icons-social mx-auto my-2" alt="logo deezer">
+                                    <span class="text-white">Deezer</span>
+                                </a>
+                            </div>
+                            <div v-if="user.soundcloudLink" class="text-center px-4">
+                                <a :href="user.soundcloudLink" class="text-center">
+                                    <img src="../../assets/icons/soundcloud.png" class="icons-social mx-auto my-2" alt="logo soundcloud">
+                                    <span class="text-white">SoundCloud</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -198,7 +200,7 @@
                 constMusicsTypes: MusicsType,
                 userBanner: require('../../assets/images/default-banner.png'),
                 showEmail: false,
-                showInfos: false,
+                showInfos: document.documentElement.clientWidth >= 1024,
                 alreadyLike: false
             }
         },
@@ -233,6 +235,12 @@
                 })
             }
         },
+        created() {
+            window.addEventListener("resize", this.windowResize);
+        },
+        destroyed() {
+            window.removeEventListener("resize", this.windowResize);
+        },
         mounted () {
             // Try to access to his profile
             if (this.$route.name === 'Profile.me') {
@@ -251,6 +259,7 @@
                 Vue.prototype.$http.put('http://localhost:6985/api/users/like', {userId: this.user._id})
                     .then(res => {
                         // update user
+                        this.alreadyLike = true
                         this.user = res.data.data
                     })
                     .catch(() => {
@@ -261,6 +270,7 @@
                 Vue.prototype.$http.put('http://localhost:6985/api/users/unlike', {userId: this.user._id})
                     .then(res => {
                         // update user
+                        this.alreadyLike = false;
                         this.user = res.data.data
                     })
                     .catch(() => {
@@ -305,6 +315,10 @@
             pauseTrack: function () {
                 this.$store.dispatch('Tracks/setPause')
             },
+            windowResize: function () {
+                if (document.documentElement.clientWidth >= 1024 && !this.showInfos) this.showInfos = true;
+                else if (document.documentElement.clientWidth < 1024 && this.showInfos) this.showInfos = false;
+            }
         }
     }
 </script>

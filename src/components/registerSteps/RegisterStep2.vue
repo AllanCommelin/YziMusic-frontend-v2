@@ -14,21 +14,25 @@
                 <label class="label" for="birthday">Date de naissance</label>
                 <input type="date" class="input" id="birthday" placeholder="31/12/1990" v-model="birthday">
             </div>
-            <h3 class="text-xl w-full text-ym-blue font-bold my-4">Styles de musique</h3>
-            <div class="flex flex-wrap text-ym-grey">
-                <div class="grid gap-4 grid-cols-2 w-full">
-                    <div v-for="type in musicsTypes" v-bind:key="type.value">
-                        <label :for="type.value" class="mr-2">{{ type.label }}</label>
-                        <input type="checkbox" class="checkbox" :checked="type.checked" v-model="type.checked" v-bind:id="type.value"/>
-                    </div>
-                </div>
-            </div>
-            <h3 class="text-xl text-ym-blue w-full font-bold my-4">Types de profil</h3>
-            <div class="flex flex-wrap text-ym-grey">
-                <div class="grid gap-4 grid-cols-2 w-full">
-                    <div v-for="type in profilesTypes" v-bind:key="type.value">
-                        <label :for="type.value" class="mr-2">{{ type.label }}</label>
-                        <input type="checkbox" class="checkbox" :checked="type.checked" v-model="type.checked" v-bind:id="type.value"/>
+           <div class="w-full sm:w-1/2">
+               <h3 class="text-xl w-full text-ym-blue font-bold my-4">Styles de musique</h3>
+               <div class="flex flex-wrap text-ym-grey">
+                   <div class="grid gap-4 grid-cols-2 w-full">
+                       <div v-for="type in musicsTypes" v-bind:key="type.value">
+                           <label :for="type.value" class="mr-2">{{ type.label }}</label>
+                           <input type="checkbox" class="checkbox" :checked="type.checked" v-model="type.checked" v-bind:id="type.value"/>
+                       </div>
+                   </div>
+               </div>
+           </div>
+            <div class="w-full sm:w-1/2">
+                <h3 class="text-xl text-ym-blue w-full font-bold my-4">Types de profil</h3>
+                <div class="flex flex-wrap text-ym-grey">
+                    <div class="grid gap-4 grid-cols-2 w-full">
+                        <div v-for="type in profilesTypes" v-bind:key="type.value">
+                            <label :for="type.value" class="mr-2">{{ type.label }}</label>
+                            <input type="checkbox" class="checkbox" :checked="type.checked" v-model="type.checked" v-bind:id="type.value"/>
+                        </div>
                     </div>
                 </div>
             </div>
