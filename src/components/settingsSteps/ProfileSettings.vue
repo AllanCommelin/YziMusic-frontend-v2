@@ -3,7 +3,7 @@
         <modalUploadPicture v-show="showModalUploadPicture" @close="showModalUploadPicture = false" :imageProfile="imageProfile" :user="user"/>
         <div class="flex flex-wrap justify-between text-ym-grey">
             <div class="sm:w-1/3 w-full text-left my-2">
-                <img :src="imageProfile" alt="Photo de profil" class="h-24 relative block mx-auto rounded-full border-solid border-main border-5">
+                <img :src="imageProfile" alt="Photo de profil" class="h-24 w-24 profile-img relative block mx-auto rounded-full border-solid border-main border-5">
                 <button v-on:click="showModalUploadPicture = true" class="block mx-auto font-400 italic underline hover:text-ym-blue">Changer</button>
             </div>
             <div class="sm:w-1/3 w-full sm:pr-2 text-left my-2">

@@ -5,10 +5,10 @@
         </div>
         <div class="flex justify-center mt-8">
             <img :src="imageProfile" alt="profile"
-                 class="h-28 rounded-full border-solid border-main border-5 -mt-3"/>
+                 class="h-28 w-28 profile-img rounded-full border-solid border-main border-5 -mt-3"/>
         </div>
         <div class="text-center px-3 pb-3 pt-2">
-            <h3 class="-mt-8 text-white text-2xl font-black font-sans uppercase italic">{{ user.username }}</h3>
+            <h3 class="-mt-8 text-white text-2xl font-black font-sans uppercase italic text-shadow">{{ user.username }}</h3>
             <ul class="chips mt-2 font-sans font-light">
                 <li v-for="profile in constProfilesTypes" v-bind:key="profile.value"
                     v-bind:class="[user.profilesTypes.includes(profile.value) ? 'activeProfile' : 'inactiveProfile']">

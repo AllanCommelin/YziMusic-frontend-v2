@@ -7,8 +7,8 @@
             <div class="mb-6">
                 <div class="relative flex justify-center">
                     <img :src="imageProfile" alt="photo de profil"
-                         class="h-48 relative rounded-full border-solid border-main border-8 -mt-3"/>
-                    <h1 class="absolute username-profile mt-4 text-white text-4xl font-black font-sans italic uppercase">
+                         class="h-48 w-48 profile-img relative rounded-full border-solid border-main border-8 -mt-3"/>
+                    <h1 class="text-shadow absolute username-profile mt-4 text-white text-4xl font-black font-sans italic uppercase">
                         {{ user.username }}
                     </h1>
                 </div>
@@ -71,36 +71,38 @@
                     </div>
             </div>
         </div>
-            <template v-if="!isAuthUser">
-                <div class="flex justify-center w-100">
-                    <button class="max-w-56 w-full mr-0 sm:mr-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out text-main font-normal py-2 px-6">
-                        <i class="fas fa-paper-plane text-xl text-main"></i>
-                        Contacter
-                    </button>
+            <div class="flex justify-around" v-if="!isAuthUser">
+                <div class="flex items-center justify-center flex-col">
+                    <a :href="'mailto:'+user.email" class="mb-2 uppercase rounded-full bg-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out h-12 w-12 flex items-center justify-center">
+                        <i class="fas fa-envelope text-xl text-white"></i>
+                    </a>
+                    <span class="font-black uppercase italic text-white text-sm">Contacter</span>
                 </div>
-                <div class="flex justify-center w-100">
-                    <button v-if="!alreadyLike" v-on:click="likeUser" class="max-w-56 w-full ml-0 sm:ml-2 uppercase rounded-full border-3 border-solid border-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out text-main font-normal py-2 px-6">
-                        {{ user.likes ? user.likes.length : 0 }}
-                        <i class="fas fa-thumbs-up text-xl text-main"/>
-                    </button>
-                    <button v-else v-on:click="unlikeUser" class="max-w-56 w-full ml-0 sm:ml-2 uppercase rounded-full border-3 border-solid border-main-light italic font-bold mt-4 btn-primary transition duration-300 ease-in-out text-white bg-main-light font-normal py-2 px-6">
-                        {{ user.likes ? user.likes.length : 0 }}
+                <div class="flex items-center justify-center flex-col">
+                    <button v-if="!alreadyLike" v-on:click="likeUser" class="mb-2 uppercase rounded-full bg-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out h-12 w-12 flex items-center justify-center">
                         <i class="fas fa-thumbs-up text-xl text-white"/>
                     </button>
+                    <button v-else v-on:click="unlikeUser" class="mb-2 uppercase rounded-full bg-main-light italic font-bold mt-4 btn-primary transition duration-300 ease-in-out h-12 w-12 flex items-center justify-center">
+                        <i class="fas fa-thumbs-up text-xl text-white"/>
+                    </button>
+                    <span class="font-black uppercase italic text-white text-sm">
+                        <span class="like-number">{{ user.likes ? user.likes.length : 0 }}</span> likes
+                    </span>
                 </div>
-            </template>
+            </div>
         </div>
         <div class="profile-content w-full lg:w-2/3 lg:pl-10">
             <div class="w-10/12 max-w-3xl mx-auto">
                 <div class="w-full order-1 py-2 bg-ym-black lg:order-2 text-left">
                     <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">À propos</h2>
-                    <p class="text-white text-lg font-thin mb-4">{{ user.description }}</p>
+                    <p class="text-white text-lg font-thin mb-4">{{ user.description ? user.description : 'Aucune description pour le moment !' }}</p>
                 </div>
                 <div class="w-full order-1 py-2 bg-ym-black lg:order-2 text-left">
                     <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Projets</h2>
                     <div>
                         <ul>
-                            <li v-for="track in user.tracks" v-bind:key="track._id" class="flex w-full max-w-lg border-1 border-main-light py-2 px-4 rounded-lg my-2">
+                            <template v-if="user.tracks && user.tracks.length > 0">
+                                <li v-for="track in user.tracks" v-bind:key="track._id" class="flex w-full max-w-lg border-1 border-main-light py-2 px-4 rounded-lg my-2">
                                 <div class="flex flex-col w-3/4">
                                     <span class="uppercase font-black text-main-light">{{ track.name }}</span>
                                     <span class="font-medium italic text-white text-xs">{{ user.username }}</span>
@@ -117,6 +119,12 @@
                                     </button>
                                 </div>
                             </li>
+                            </template>
+                            <template v-else>
+                                <li class="text-white">
+                                    Aucun projet pour le moment !
+                                </li>
+                            </template>
                         </ul>
                     </div>
                 </div>
@@ -124,55 +132,55 @@
                     <div>
                         <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Réseaux sociaux</h2>
                         <div class="flex flex-wrap justify-between py-4">
-                            <div v-if="user.facebookLink" class="text-center px-4">
-                                <a :href="user.facebookLink" class="text-center">
-                                    <img src="../../assets/icons/facebook.png" class="icons-social mx-auto my-2" alt="logo facebook">
-                                    <span class="text-white">Facebook</span>
+                            <div class="text-center px-4">
+                                <a :href="user.facebookLink ? user.facebookLink : '#'" class="text-center">
+                                    <img src="../../assets/icons/facebook.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.facebookLink}]" alt="logo facebook">
+                                    <span :class="user.facebookLink ? 'text-white' : 'text-gray-700'">Facebook</span>
                                 </a>
                             </div>
-                            <div v-if="user.twitterLink" class="text-center px-4">
-                                <a :href="user.twitterLink" class="text-center">
-                                    <img src="../../assets/icons/twitter.svg" class="icons-social mx-auto my-2" alt="logo twitter">
-                                    <span class="text-white">Twitter</span>
+                            <div class="text-center px-4">
+                                <a :href="user.twitterLink ? user.twitterLink : '#'" class="text-center">
+                                    <img src="../../assets/icons/twitter.svg" :class="['icons-social mx-auto my-2', {'grayscale': !user.twitterLink}]" alt="logo twitter">
+                                    <span :class="user.twitterLink ? 'text-white' : 'text-gray-700'">Twitter</span>
                                 </a>
                             </div>
-                            <div v-if="user.instagramLink" class="text-center px-4">
-                                <a :href="user.instagramLink" class="text-center">
-                                    <img src="../../assets/icons/instagram.png" class="icons-social mx-auto my-2" alt="logo instagram">
-                                    <span class="text-white">Instagram</span>
+                            <div class="text-center px-4">
+                                <a :href="user.instagramLink ? user.instagramLink : '#'" class="text-center">
+                                    <img src="../../assets/icons/instagram.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.instagramLink}]" alt="logo instagram">
+                                    <span :class="user.instagramLink ? 'text-white' : 'text-gray-700'">Instagram</span>
                                 </a>
                             </div>
-                            <div v-if="user.youtubeLink" class="text-center px-4">
-                                <a :href="user.youtubeLink" class="text-center">
-                                    <img src="../../assets/icons/youtube.png" class="icons-social mx-auto my-2" alt="logo youtube">
-                                    <span class="text-white">YouTube</span>
+                            <div class="text-center px-4">
+                                <a :href="user.youtubeLink ? user.youtubeLink : '#'" class="text-center">
+                                    <img src="../../assets/icons/youtube.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.youtubeLink}]" alt="logo youtube">
+                                    <span :class="user.youtubeLink ? 'text-white' : 'text-gray-700'">YouTube</span>
                                 </a>
                             </div>
                         </div>
                         <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Streaming</h2>
                         <div class="flex flex-wrap justify-between py-4">
-                            <div v-if="user.spotifyLink" class="text-center px-4">
-                                <a :href="user.spotifyLink" class="text-center">
-                                    <img src="../../assets/icons/spotify.png" class="icons-social mx-auto my-2" alt="logo spotify">
-                                    <span class="text-white">Spotify</span>
+                            <div class="text-center px-4">
+                                <a :href="user.spotifyLink ? user.spotifyLink : '#'" class="text-center">
+                                    <img src="../../assets/icons/spotify.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.spotifyLink}]" alt="logo spotify">
+                                    <span :class="user.spotifyLink ? 'text-white' : 'text-gray-700'">Spotify</span>
                                 </a>
                             </div>
-                            <div v-if="user.appleMusicLink" class="text-center px-4">
-                                <a :href="user.appleMusicLink" class="text-center">
-                                    <img src="../../assets/icons/applemusic.png" class="icons-social mx-auto my-2" alt="logo applemusic">
-                                    <span class="text-white">Apple Music</span>
+                            <div class="text-center px-4">
+                                <a :href="user.appleMusicLink ? user.appleMusicLink : '#'" class="text-center">
+                                    <img src="../../assets/icons/applemusic.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.appleMusicLink}]" alt="logo applemusic">
+                                    <span :class="user.appleMusicLink ? 'text-white' : 'text-gray-700'">Apple Music</span>
                                 </a>
                             </div>
-                            <div v-if="user.deezerLink" class="text-center px-4">
-                                <a :href="user.deezerLink" class="text-center">
-                                    <img src="../../assets/icons/deezer.png" class="icons-social mx-auto my-2" alt="logo deezer">
-                                    <span class="text-white">Deezer</span>
+                            <div class="text-center px-4">
+                                <a :href="user.deezerLink ? user.deezerLink : '#'" class="text-center">
+                                    <img src="../../assets/icons/deezer.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.deezerLink}]" alt="logo deezer">
+                                    <span :class="user.deezerLink ? 'text-white' : 'text-gray-700'">Deezer</span>
                                 </a>
                             </div>
-                            <div v-if="user.soundcloudLink" class="text-center px-4">
-                                <a :href="user.soundcloudLink" class="text-center">
-                                    <img src="../../assets/icons/soundcloud.png" class="icons-social mx-auto my-2" alt="logo soundcloud">
-                                    <span class="text-white">SoundCloud</span>
+                            <div class="text-center px-4">
+                                <a :href="user.soundcloudLink ? user.soundcloudLink : '#'" class="text-center">
+                                    <img src="../../assets/icons/soundcloud.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.soundcloudLink}]" alt="logo soundcloud">
+                                    <span :class="user.soundcloudLink ? 'text-white' : 'text-gray-700'">SoundCloud</span>
                                 </a>
                             </div>
                         </div>
@@ -198,7 +206,6 @@
                 isAuthUser: false,
                 constProfilesTypes: ProfilesTypes,
                 constMusicsTypes: MusicsType,
-                userBanner: require('../../assets/images/default-banner.png'),
                 showEmail: false,
                 showInfos: document.documentElement.clientWidth >= 1024,
                 alreadyLike: false
@@ -333,7 +340,13 @@
     .setting-btn {
         right: 0;
         top: -1rem;
-        color: #919191;
+        color: #7149F9;
+    }
+    @media (min-width: 1024px) {
+        .setting-btn {
+            right: 1rem;
+            top: 2rem;
+        }
     }
     .title-infos {
         color: #919191;
@@ -352,5 +365,20 @@
             background-color: #7149F9;
             color: white;
         }
+    }
+    .like-number {
+        position: relative;
+        &:after {
+            content: '';
+            position: absolute;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            background-color: #7149F9;
+        }
+    }
+    img.grayscale {
+        filter: grayscale(80%);
     }
 </style>

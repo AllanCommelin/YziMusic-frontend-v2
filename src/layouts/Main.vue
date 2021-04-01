@@ -34,8 +34,15 @@
                             </button>
                         </template>
                         <template v-else>
-                            <button v-on:click="goTo('Profile.me')">Mon profil</button>
-                            <button v-on:click="logout">Déconnexion</button>
+                            <button class="flex items-center justify-center" v-on:click="goTo('Profile.me')">
+                                <img :src="imageProfile" alt="photo de profil"
+                                     class="h-8 w-8 profile-img rounded-full border-solid border-main border-2"/>
+                                <span class="username">{{ user.username }}</span>
+                            </button>
+                            <button class="btn-icon-link" v-on:click="logout">
+                                <img src="../assets/icons/logout.svg" alt="pictogramme connexion" aria-hidden="true">
+                                <span>Déconnexion</span>
+                            </button>
                         </template>
                     </li>
                 </ul>
@@ -72,7 +79,12 @@
             ...mapState({
                 user: state => state.User.user,
                 is_login: state => state.User.is_login
-            })
+            }),
+            imageProfile: function () {
+                return this.user.profilePicture ?
+                    'data:'+ this.user.profilePicture.contentType +';base64,'+ this.user.profilePicture.picture
+                    : require('../assets/images/default-profile.jpg')
+            },
         },
         methods: {
             ...mapActions({
@@ -98,5 +110,14 @@
             background-color: #a0aec0;
             color: #edf2f7;
         }
+    }
+
+    span.username {
+        font-family: 'Montserrat';
+        color: #7149F9;
+        font-style: italic;
+        font-weight: 700;
+        font-size: 1rem;
+        padding-left: .35rem;
     }
 </style>

@@ -21,7 +21,10 @@ const router = new VueRouter({
                 ...profilesRoutes,
             ]
         }
-    ]
+    ],
+    scrollBehavior () {
+        return { x: 0, y: 0 }
+    }
 })
 
 router.beforeEach(async (to, from, next) => {

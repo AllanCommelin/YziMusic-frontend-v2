@@ -13,7 +13,7 @@
                     <div class="flex flex-col items-center py-2 space-y-3">
                         <span class="text-lg text-gray-800">Image actuelle</span>
                         <div class="flex space-x-3 pt-1 pb-6">
-                            <img id="imageProfile" :src="imageProfile" alt="Photo de profil" class="h-24 relative block mx-auto rounded-full border-solid border-main border-5">
+                            <img id="imageProfile" :src="imageProfile" alt="Photo de profil" class="profile-img h-24 w-24 relative block mx-auto rounded-full border-solid border-main border-5">
                         </div>
                     </div>
                     <div class="flex w-full items-center justify-center bg-grey-lighter">
@@ -21,7 +21,7 @@
                             <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                             </svg>
-                            <span class="mt-2 text-center leading-normal">Sélectionner une photo</span>
+                            <span class="mt-2 text-center leading-normal">Sélectionner une photo (max: 15mb)</span>
                             <input type='file' v-on:change="onFileChange" class="hidden" />
                         </label>
                     </div>
@@ -69,9 +69,8 @@
                 formData.append("image", this.selectedImage);  // Appending file
                 // Sending file to the backend
                 Vue.prototype.$http.put('http://localhost:6985/api/users/upload/picture/'+this.user._id, formData)
-                    .then(res => {
+                    .then(() => {
                         //Todo : Manage response
-                        console.log(res);
                         this.closeModal();
                     })
                     .catch(err => {

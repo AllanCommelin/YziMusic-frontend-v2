@@ -108,3 +108,11 @@ button:focus {
 .icons-social {
     height: 50px;
 }
+
+.profile-img {
+    object-fit: cover;
+}
+
+.text-shadow {
+    text-shadow: #000 1px 0 5rem;
+}

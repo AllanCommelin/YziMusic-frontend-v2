@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mx-auto max-w-4xl">
         <h1 class="relative text-left font-black uppercase italic text-5xl shadow-title title--outline mb-4">Réglages</h1>
         <div>
             <div class="relative">
