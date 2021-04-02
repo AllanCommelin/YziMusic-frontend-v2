@@ -53,9 +53,9 @@
         computed: {
             imageProfile: function () {
                 return this.user.profilePicture ?
-                    'data:'+ this.user.profilePicture.contentType +';base64,'+btoa(String.fromCharCode(...new Uint8Array(this.user.profilePicture.data.data)))
+                    'data:'+ this.user.profilePicture.contentType +';base64,'+ this.user.profilePicture.picture
                     : require('../assets/images/default-profile.jpg')
-            }
+            },
         },
         methods: {
             musicsTypesActive: function (count = false) {

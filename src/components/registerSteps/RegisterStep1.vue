@@ -36,11 +36,11 @@
         name: "RegisterStep1",
         data() {
           return {
-              firstname: '',
-              lastname: '',
-              email: '',
-              username: '',
-              password: ''
+              firstname: 'Samuel',
+              lastname: 'Taieb',
+              email: 'seezy@yzimusic.Fr',
+              username: 'Seezy',
+              password: 'azertyuiop'
           }
         },
         computed: {
@@ -59,15 +59,15 @@
         },
         created () {
             /* Get data if it already on store (ex step 2 to 1)*/
-            this.firstname = this.user.firstname ? this.user.firstname :''
-            this.lastname = this.user.lastname ? this.user.lastname :''
-            this.email = this.user.email ? this.user.email :''
-            this.username = this.user.username ? this.user.username :''
-            this.password = this.user.password ? this.user.password :''
+            if(this.user.firstname) this.firstname = this.user.firstname
+            if(this.user.lastname) this.lastname = this.user.lastname
+            if(this.user.email) this.email = this.user.email
+            if(this.user.username) this.username = this.user.username
+            if(this.user.password) this.password = this.user.password
         },
         methods: {
             next () {
-                this.$store.dispatch('User/SET_USER_FIELD', {
+                this.$store.dispatch('User/setUserField', {
                     firstname: this.firstname,
                     lastname: this.lastname,
                     email: this.email,

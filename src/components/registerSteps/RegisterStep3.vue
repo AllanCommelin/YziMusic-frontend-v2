@@ -88,7 +88,7 @@
                 registerUser: 'User/registerUser'
             }),
             async next () {
-                this.$store.dispatch('User/SET_USER_FIELD', {
+                this.$store.dispatch('User/setUserField', {
                     facebookLink: this.facebookLink,
                     twitterLink: this.twitterLink,
                     instagramLink: this.instagramLink,

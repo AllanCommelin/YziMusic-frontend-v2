@@ -111,10 +111,8 @@ const actions = {
     registerUser: function (store) {
         store.commit('INIT_ERROR')
         store.commit('SET_USER_FIELD', {creationDate: new Date()})
-        let formData = {...store.state.user}
-        delete formData.likes
         if (!store.state.pendingUser) {
-            Vue.prototype.$http.post('http://localhost:6985/auth/register', formData)
+            Vue.prototype.$http.post('http://localhost:6985/auth/register', store.state.user)
                 .then(res => {
                     //TODO: redirect to login screen with alert sucess
                     console.log(`User ${res.data.user.username} is register . Go to login`)

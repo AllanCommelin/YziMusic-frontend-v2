@@ -55,8 +55,8 @@
             return {
                 profilesTypes: ProfilesTypes,
                 musicsTypes: MusicsType,
-                description: '',
-                location: '',
+                description: 'Test',
+                location: 'Paris, France',
                 birthday: '',
             }
         },
@@ -73,9 +73,10 @@
         },
         created () {
             /* Get data if it already on store (ex step 3 to 2)*/
-            this.description = this.user.description ? this.user.description :''
-            this.location = this.user.location ? this.user.location :''
-            this.birthday = this.user.birthday ? this.user.birthday :''
+            if(this.user.description) this.description = this.user.description
+            if(this.user.location) this.location = this.user.location
+            if(this.user.birthday) this.birthday = this.user.birthday
+
             this.user.musicsTypes.forEach(music => {
                 this.musicsTypes.forEach(obj => {
                     if(obj.value === music) obj.checked = true;
@@ -97,7 +98,7 @@
                 return data
             },
             next() {
-                this.$store.dispatch('User/SET_USER_FIELD', {
+                this.$store.dispatch('User/setUserField', {
                     profilesTypes: this.formatCheckedData(this.profilesTypes),
                     musicsTypes: this.formatCheckedData(this.musicsTypes),
                     description: this.description,

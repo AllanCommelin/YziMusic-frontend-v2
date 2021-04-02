@@ -18,33 +18,47 @@
             <div :class="['w-full flex-grow lg:flex lg:items-center lg:w-auto lg:block pt-6 lg:pt-0', !navToggle ? 'hidden' :'']"
                  v-on:click="toggleNav">
                 <ul class="list-reset lg:flex justify-end flex-1 items-center">
-                    <li class="mr-3 flex">
+                    <li class="flex justify-end my-2">
                         <button class="btn-icon-link" v-on:click="goTo('Home')">
                             <img src="../assets/icons/home.svg" alt="pictogramme accueil" aria-hidden="true">
                             <span>Accueil</span>
                         </button>
+                    </li>
+                    <li class="flex justify-end my-2">
+                        <button class="btn-icon-link" v-on:click="goTo('Profile.search')">
+                            <img src="../assets/icons/search.svg" alt="pictogramme recherche" aria-hidden="true">
+                            <span>Trouver un profil</span>
+                        </button>
+                    </li>
                         <template v-if="!is_login">
-                            <button class="btn-icon-link" v-on:click="goTo('Login')">
-                                <img src="../assets/icons/badge.svg" alt="pictogramme connexion" aria-hidden="true">
-                                <span>Connexion</span>
-                            </button>
-                            <button class="btn-icon-link" v-on:click="goTo('Register')">
-                                <img src="../assets/icons/person.svg" alt="pictogramme inscription" aria-hidden="true">
-                                <span>Inscription</span>
-                            </button>
+                            <li class="flex justify-end my-2">
+                                <button class="btn-icon-link" v-on:click="goTo('Login')">
+                                    <img src="../assets/icons/badge.svg" alt="pictogramme connexion" aria-hidden="true">
+                                    <span>Connexion</span>
+                                </button>
+                            </li>
+                            <li class="flex justify-end my-2">
+                                <button class="btn-icon-link" v-on:click="goTo('Register')">
+                                    <img src="../assets/icons/person.svg" alt="pictogramme inscription" aria-hidden="true">
+                                    <span>Inscription</span>
+                                </button>
+                            </li>
                         </template>
                         <template v-else>
-                            <button class="flex items-center justify-center" v-on:click="goTo('Profile.me')">
-                                <img :src="imageProfile" alt="photo de profil"
-                                     class="h-8 w-8 profile-img rounded-full border-solid border-main border-2"/>
-                                <span class="username">{{ user.username }}</span>
-                            </button>
-                            <button class="btn-icon-link" v-on:click="logout">
-                                <img src="../assets/icons/logout.svg" alt="pictogramme connexion" aria-hidden="true">
-                                <span>Déconnexion</span>
-                            </button>
+                            <li class="flex justify-end my-2">
+                                <button class="flex items-center justify-center mx-4" v-on:click="goTo('Profile.me')">
+                                    <img :src="imageProfile" alt="photo de profil"
+                                         class="h-8 w-8 profile-img rounded-full border-solid border-main border-2"/>
+                                    <span class="username">{{ user.username }}</span>
+                                </button>
+                            </li>
+                            <li class="flex justify-end my-2">
+                                <button class="btn-icon-link" v-on:click="logout">
+                                    <img src="../assets/icons/logout.svg" alt="pictogramme connexion" aria-hidden="true">
+                                    <span>Déconnexion</span>
+                                </button>
+                            </li>
                         </template>
-                    </li>
                 </ul>
             </div>
         </nav>

@@ -41,17 +41,24 @@ button:focus {
     font-weight: 500;
 }
 
+.input.--search {
+    @apply rounded-r-none w-full max-w-2xl mt-0
+}
+
 .input.--light {
     @apply text-gray-700;
     background-color: white !important;
 }
 
 .input:focus {
-    @apply outline-none shadow-outline;
+    outline: none;
+    box-shadow: none;
 }
+
 .input::placeholder {
     color: rgba(255, 255, 255, .25);
 }
+
 .input.--light::placeholder {
     color: rgba(0, 0, 0, 0.25);
 }
@@ -60,6 +67,7 @@ button:focus {
 .label {
     @apply text-white font-bold uppercase text-sm;
 }
+
 .label.--light {
     @apply text-gray-700;
 }
@@ -74,6 +82,7 @@ button:focus {
     background-size: 100% 100%;
     background: currentColor url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e") no-repeat center;
 }
+
 .checkbox:focus {
     outline: none;
 }
@@ -82,17 +91,55 @@ button:focus {
     @apply float-right transition duration-300 ease-in-out bg-main text-white font-normal py-2 px-4 mr-1 rounded;
 }
 
+.btn-search {
+    @apply transition duration-300 ease-in-out bg-main text-white font-normal py-2 px-4 rounded-r-lg
+}
+
 .btn-yzi:hover {
     @apply bg-ym-blue;
 }
+
 .btn-yzi:disabled {
     @apply bg-ym-grey text-gray-500;
 }
 
+.card-user {
+    display: inline-block;
+    padding: 0 1rem;
+}
+
+.card-user:first-of-type {
+    padding-left: 2.5rem;
+}
+
+.card-user:last-of-type {
+    padding-right: 2.5rem;
+}
+
+.scrollable-cards {
+    margin-left: -2.5rem;
+    margin-right: -2.5rem;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    text-align: left;
+    /* Hidden scroll bar c: */
+    scrollbar-width: none; /* For Firefox */
+}
+
+.scrollable-cards::-webkit-scrollbar { /* For Chrome, Safari and Opera */
+    display: none;
+}
+
 .shadow-title {
     color: #0D0D0D;
-    text-shadow:  #7149F9 0px 0px 2px, #7149F9 0px 0px 2px,
-                  #7149F9 0px 0px 2px, #7149F9 0px 0px 2px;
+    text-shadow: #7149F9 0px 0px 2px, #7149F9 0px 0px 2px,
+    #7149F9 0px 0px 2px, #7149F9 0px 0px 2px;
+}
+
+.title--outline {
+    position: relative;
+    width: fit-content;
 }
 
 .title--outline::after {
@@ -101,7 +148,7 @@ button:focus {
     left: 0;
     content: ' ';
     height: 3px;
-    width: 25%;
+    width: 60%;
     background-color: #7149F9;
 }
 

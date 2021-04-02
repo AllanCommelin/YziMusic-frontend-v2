@@ -80,27 +80,4 @@
     .title-ym {
         color: #d0d0d0;
     }
-    .scrollable-cards {
-        margin-left: -2.5rem;
-        margin-right: -2.5rem;
-        overflow-x: scroll;
-        overflow-y: hidden;
-        white-space: nowrap;
-        /* Hidden scroll bar c: */
-        scrollbar-width: none; /* For Firefox */
-        &::-webkit-scrollbar { /* For Chrome, Safari and Opera */
-            display: none;
-        }
-
-        .card-user {
-            display: inline-block;
-            padding: 0 1rem;
-            &:first-of-type {
-                padding-left: 2.5rem;
-            }
-            &:last-of-type {
-                padding-right: 2.5rem;
-            }
-        }
-    }
 </style>
