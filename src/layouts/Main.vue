@@ -113,6 +113,7 @@
             },
             logout () {
                 this.logOutUser()
+                this.goTo('Login')
             }
         }
     }
