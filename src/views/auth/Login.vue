@@ -13,8 +13,11 @@
                 <label class="label" for="password">Mot de passe</label>
                 <input id="password" class="input" v-model="password" required name="password" type="password" v-on:keyup.enter="login" placeholder="Minimum 8 caractères"/>
             </div>
-            <div class="mt-10 w-full flex justify-center">
-                <button class="btn-yzi" :disabled="!isFullFilled" v-on:click="login">Se connecter</button>
+            <div class="mt-10 w-full flex justify-center items-center flex-col">
+                <button class="btn-yzi w-max" :disabled="!isFullFilled" v-on:click="login">Se connecter</button>
+                <router-link class="my-2 hover:underline" to="Register">
+                    Pas encore de compte ?
+                </router-link>
             </div>
         </div>
     </div>
@@ -58,7 +61,7 @@
             }),
             login () {
                 this.logInUser({
-                    email: this.email,
+                    email: this.email.toLowerCase(),
                     password: this.password
                 })
             }

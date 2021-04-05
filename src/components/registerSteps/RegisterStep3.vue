@@ -69,7 +69,8 @@
         },
         computed: {
             ...mapState({
-                user: state => state.User.user
+                user: state => state.User.user,
+                error: state => state.User.errorLogin
             }),
         },
         created () {
@@ -85,7 +86,7 @@
         },
         methods: {
             ...mapActions({
-                registerUser: 'User/registerUser'
+                registerUser: 'User/registerUser',
             }),
             async next () {
                 this.$store.dispatch('User/setUserField', {
@@ -100,7 +101,7 @@
                 })
                 await this.registerUser()
                 //Todo: check return of register user if status !== 200, not increment, catch error
-                this.$emit('increment')
+                if (!this.error) this.$emit('increment')
             },
             previous() {
                 this.$emit('decrement')

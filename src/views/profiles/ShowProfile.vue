@@ -4,7 +4,7 @@
             <div v-if="isAuthUser" class="absolute setting-btn" v-on:click="goToSetting">
                 <i class="fas fa-cog"></i>
             </div>
-            <div class="mb-6">
+            <div class="mb-6 mt-8">
                 <div class="relative flex justify-center">
                     <img :src="imageProfile" alt="photo de profil"
                          class="h-48 w-48 profile-img relative rounded-full border-solid border-main border-8 -mt-3"/>

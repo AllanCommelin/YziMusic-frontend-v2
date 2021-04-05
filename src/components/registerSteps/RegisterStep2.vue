@@ -110,9 +110,6 @@
             previous() {
                 this.$emit('decrement')
             },
-            handleCheckbox(event) {
-                console.log(event)
-            }
         }
     }
 </script>

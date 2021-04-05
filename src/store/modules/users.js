@@ -24,6 +24,7 @@ const state = {
         likes: [],
         profilePicture: null,
         creationDate: null,
+        role: ''
     },
     is_login: false,
     errorLogin: false,

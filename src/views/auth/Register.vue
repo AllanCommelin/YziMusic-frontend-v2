@@ -1,6 +1,9 @@
 <template>
     <div class="mx-auto max-w-4xl">
         <div>
+            <div v-if="error" class="my-2">
+                <alert :msg='error' type="error"></alert>
+            </div>
             <Step1 v-if="step === 1" @increment="incrementStep" @decrement="decrementStep"/>
             <Step2 v-else-if="step === 2" @increment="incrementStep" @decrement="decrementStep"/>
             <Step3 v-else-if="step === 3" @increment="incrementStep" @decrement="decrementStep"/>
@@ -16,7 +19,7 @@
                             Vous pouvez désormais vous connecter en cliquant sur le bouton ci-dessous
                         </p>
                         <div>
-                            <a href="/login" class="uppercase italic font-bold inline-block mt-2 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-main hover:bg-main text-white font-normal py-4 px-4 rounded">
+                            <a href="/login" class="uppercase italic font-bold inline-block my-2 btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-main hover:bg-main text-white font-normal py-4 px-4 rounded">
                                 Se connecter
                             </a>
                         </div>
@@ -32,13 +35,15 @@
     import Step1 from '../../components/registerSteps/RegisterStep1'
     import Step2 from '../../components/registerSteps/RegisterStep2'
     import Step3 from '../../components/registerSteps/RegisterStep3'
+    import Alert from '@/components/Alert'
 
     export default {
         name: "Register",
         components: {
             Step1,
             Step2,
-            Step3
+            Step3,
+            Alert
         },
         data () {
             return {
@@ -48,7 +53,8 @@
         computed: {
             ...mapState({
                 user: state => state.User.user,
-                is_login: state => state.User.is_login
+                is_login: state => state.User.is_login,
+                error: state => state.User.errorLogin
             })
         },
         methods: {

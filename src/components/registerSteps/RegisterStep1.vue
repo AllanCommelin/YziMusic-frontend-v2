@@ -70,7 +70,7 @@
                 this.$store.dispatch('User/setUserField', {
                     firstname: this.firstname,
                     lastname: this.lastname,
-                    email: this.email,
+                    email: this.email.toLowerCase(),
                     username: this.username,
                     password:this.password
                 })
