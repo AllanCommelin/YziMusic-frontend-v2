@@ -30,22 +30,14 @@
                             <span>Trouver un profil</span>
                         </button>
                     </li>
-                        <template v-if="!is_login">
-                            <li class="flex justify-end my-2">
-                                <button class="btn-icon-link" v-on:click="goTo('Login')">
-                                    <img src="../assets/icons/badge.svg" alt="pictogramme connexion" aria-hidden="true">
-                                    <span>Connexion</span>
+                        <template v-if="is_login">
+                            <li v-if="user.role === 'admin'" class="flex justify-end my-2">
+                                <button class="btn-icon-link" v-on:click="goTo('Admin.dashboard')">
+                                    <img src="../assets/icons/dashboard.svg" alt="pictogramme dashboard" aria-hidden="true">
+                                    <span class="text-main">Dashboard</span>
                                 </button>
                             </li>
-                            <li class="flex justify-end my-2">
-                                <button class="btn-icon-link" v-on:click="goTo('Register')">
-                                    <img src="../assets/icons/person.svg" alt="pictogramme inscription" aria-hidden="true">
-                                    <span>Inscription</span>
-                                </button>
-                            </li>
-                        </template>
-                        <template v-else>
-                            <li class="flex justify-end my-2">
+                            <li v-else class="flex justify-end my-2">
                                 <button class="flex items-center justify-center mx-4" v-on:click="goTo('Profile.me')">
                                     <img :src="imageProfile" alt="photo de profil"
                                          class="h-8 w-8 profile-img rounded-full border-solid border-main border-2"/>
@@ -56,6 +48,20 @@
                                 <button class="btn-icon-link" v-on:click="logout">
                                     <img src="../assets/icons/logout.svg" alt="pictogramme connexion" aria-hidden="true">
                                     <span>Déconnexion</span>
+                                </button>
+                            </li>
+                        </template>
+                        <template v-else>
+                            <li class="flex justify-end my-2">
+                                <button class="btn-icon-link" v-on:click="goTo('Login')">
+                                    <img src="../assets/icons/badge.svg" alt="pictogramme connexion" aria-hidden="true">
+                                    <span>Connexion</span>
+                                </button>
+                            </li>
+                            <li class="flex justify-end my-2">
+                                <button class="btn-icon-link" v-on:click="goTo('Register')">
+                                    <img src="../assets/icons/person.svg" alt="pictogramme inscription" aria-hidden="true">
+                                    <span>Inscription</span>
                                 </button>
                             </li>
                         </template>

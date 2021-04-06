@@ -5,6 +5,7 @@ import MainLayout from '@/layouts/Main.vue'
 import defaultRoutes from '@/router/default';
 import authRoutes from '@/router/auth';
 import profilesRoutes from '@/router/profiles';
+import adminRoutes from "@/router/admin";
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,7 @@ const router = new VueRouter({
             children: [
                 ...defaultRoutes,
                 ...authRoutes,
+                ...adminRoutes,
                 ...profilesRoutes,
             ]
         }
