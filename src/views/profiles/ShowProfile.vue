@@ -31,6 +31,25 @@
                     </ul>
                 </div>
             </div>
+            <div class="flex justify-around" v-if="!isAuthUser">
+                <div class="flex items-center justify-center flex-col">
+                    <a :href="'mailto:'+user.email" class="mb-2 uppercase rounded-full bg-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out h-12 w-12 flex items-center justify-center">
+                        <i class="fas fa-envelope text-xl text-white"></i>
+                    </a>
+                    <span class="font-black uppercase italic text-white text-sm">Contacter</span>
+                </div>
+                <div class="flex items-center justify-center flex-col">
+                    <button v-if="!alreadyLike" v-on:click="likeUser" class="mb-2 uppercase rounded-full bg-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out h-12 w-12 flex items-center justify-center">
+                        <i class="fas fa-thumbs-up text-xl text-white"/>
+                    </button>
+                    <button v-else v-on:click="unlikeUser" class="mb-2 uppercase rounded-full bg-main-light italic font-bold mt-4 btn-primary transition duration-300 ease-in-out h-12 w-12 flex items-center justify-center">
+                        <i class="fas fa-thumbs-up text-xl text-white"/>
+                    </button>
+                    <span class="font-black uppercase italic text-white text-sm">
+                        <span class="like-number">{{ user.likes ? user.likes.length : 0 }}</span> likes
+                    </span>
+                </div>
+            </div>
             <div class="profile-secondary-infos text-left my-4 border-b-2 border-infos">
                 <div v-on:click="showInfos = !showInfos" class="flex justify-between items-center text-white">
                     <h2 class="title-infos uppercase font-black italic text-2xl my-0 py-0">Infos</h2>
@@ -71,25 +90,6 @@
                     </div>
             </div>
         </div>
-            <div class="flex justify-around" v-if="!isAuthUser">
-                <div class="flex items-center justify-center flex-col">
-                    <a :href="'mailto:'+user.email" class="mb-2 uppercase rounded-full bg-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out h-12 w-12 flex items-center justify-center">
-                        <i class="fas fa-envelope text-xl text-white"></i>
-                    </a>
-                    <span class="font-black uppercase italic text-white text-sm">Contacter</span>
-                </div>
-                <div class="flex items-center justify-center flex-col">
-                    <button v-if="!alreadyLike" v-on:click="likeUser" class="mb-2 uppercase rounded-full bg-main italic font-bold mt-4 btn-primary transition duration-300 ease-in-out h-12 w-12 flex items-center justify-center">
-                        <i class="fas fa-thumbs-up text-xl text-white"/>
-                    </button>
-                    <button v-else v-on:click="unlikeUser" class="mb-2 uppercase rounded-full bg-main-light italic font-bold mt-4 btn-primary transition duration-300 ease-in-out h-12 w-12 flex items-center justify-center">
-                        <i class="fas fa-thumbs-up text-xl text-white"/>
-                    </button>
-                    <span class="font-black uppercase italic text-white text-sm">
-                        <span class="like-number">{{ user.likes ? user.likes.length : 0 }}</span> likes
-                    </span>
-                </div>
-            </div>
         </div>
         <div class="profile-content w-full lg:w-2/3 lg:pl-10">
             <div class="w-10/12 max-w-3xl mx-auto">
@@ -135,25 +135,25 @@
                             <div class="text-center px-4">
                                 <a :href="user.facebookLink ? user.facebookLink : '#'" class="text-center">
                                     <img src="../../assets/icons/facebook.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.facebookLink}]" alt="logo facebook">
-                                    <span :class="user.facebookLink ? 'text-white' : 'text-gray-700'">Facebook</span>
+                                    <span :class="user.facebookLink ? 'text-white font-bold' : 'text-gray-700'">Facebook</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
                                 <a :href="user.twitterLink ? user.twitterLink : '#'" class="text-center">
                                     <img src="../../assets/icons/twitter.svg" :class="['icons-social mx-auto my-2', {'grayscale': !user.twitterLink}]" alt="logo twitter">
-                                    <span :class="user.twitterLink ? 'text-white' : 'text-gray-700'">Twitter</span>
+                                    <span :class="user.twitterLink ? 'text-white font-bold' : 'text-gray-700'">Twitter</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
                                 <a :href="user.instagramLink ? user.instagramLink : '#'" class="text-center">
                                     <img src="../../assets/icons/instagram.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.instagramLink}]" alt="logo instagram">
-                                    <span :class="user.instagramLink ? 'text-white' : 'text-gray-700'">Instagram</span>
+                                    <span :class="user.instagramLink ? 'text-white font-bold' : 'text-gray-700'">Instagram</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
                                 <a :href="user.youtubeLink ? user.youtubeLink : '#'" class="text-center">
                                     <img src="../../assets/icons/youtube.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.youtubeLink}]" alt="logo youtube">
-                                    <span :class="user.youtubeLink ? 'text-white' : 'text-gray-700'">YouTube</span>
+                                    <span :class="user.youtubeLink ? 'text-white font-bold' : 'text-gray-700'">YouTube</span>
                                 </a>
                             </div>
                         </div>
@@ -162,25 +162,25 @@
                             <div class="text-center px-4">
                                 <a :href="user.spotifyLink ? user.spotifyLink : '#'" class="text-center">
                                     <img src="../../assets/icons/spotify.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.spotifyLink}]" alt="logo spotify">
-                                    <span :class="user.spotifyLink ? 'text-white' : 'text-gray-700'">Spotify</span>
+                                    <span :class="user.spotifyLink ? 'text-white font-bold' : 'text-gray-700'">Spotify</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
                                 <a :href="user.appleMusicLink ? user.appleMusicLink : '#'" class="text-center">
                                     <img src="../../assets/icons/applemusic.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.appleMusicLink}]" alt="logo applemusic">
-                                    <span :class="user.appleMusicLink ? 'text-white' : 'text-gray-700'">Apple Music</span>
+                                    <span :class="user.appleMusicLink ? 'text-white font-bold' : 'text-gray-700'">Apple Music</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
                                 <a :href="user.deezerLink ? user.deezerLink : '#'" class="text-center">
                                     <img src="../../assets/icons/deezer.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.deezerLink}]" alt="logo deezer">
-                                    <span :class="user.deezerLink ? 'text-white' : 'text-gray-700'">Deezer</span>
+                                    <span :class="user.deezerLink ? 'text-white font-bold' : 'text-gray-700'">Deezer</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
                                 <a :href="user.soundcloudLink ? user.soundcloudLink : '#'" class="text-center">
                                     <img src="../../assets/icons/soundcloud.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.soundcloudLink}]" alt="logo soundcloud">
-                                    <span :class="user.soundcloudLink ? 'text-white' : 'text-gray-700'">SoundCloud</span>
+                                    <span :class="user.soundcloudLink ? 'text-white font-bold' : 'text-gray-700'">SoundCloud</span>
                                 </a>
                             </div>
                         </div>
@@ -269,9 +269,6 @@
                         this.alreadyLike = true
                         this.user = res.data.data
                     })
-                    .catch(() => {
-                        //Todo: catch error
-                    })
             },
             unlikeUser: function () {
                 Vue.prototype.$http.put('http://localhost:6985/api/users/unlike', {userId: this.user._id})
@@ -279,9 +276,6 @@
                         // update user
                         this.alreadyLike = false;
                         this.user = res.data.data
-                    })
-                    .catch(() => {
-                        //Todo: catch error
                     })
             },
             goToSetting: function () {
@@ -294,9 +288,6 @@
                         // Init user
                         this.user = res.data.data
                         this.alreadyLike = this.user.likes.includes(this.authUser._id)
-                    })
-                    .catch(() => {
-                        //Todo: catch error
                     })
             },
             displayEmail: function () {
@@ -345,7 +336,7 @@
     @media (min-width: 1024px) {
         .setting-btn {
             right: 1rem;
-            top: 2rem;
+            top: 3rem;
         }
     }
     .title-infos {

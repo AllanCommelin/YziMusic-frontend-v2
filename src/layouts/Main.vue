@@ -21,27 +21,27 @@
                     <li class="flex justify-end my-2">
                         <button class="btn-icon-link" v-on:click="goTo('Home')">
                             <img src="../assets/icons/home.svg" alt="pictogramme accueil" aria-hidden="true">
-                            <span>Accueil</span>
+                            <span :class="currentRouteName === 'Home' ? 'border-b-2 border-main' : ''">Accueil</span>
                         </button>
                     </li>
                     <li class="flex justify-end my-2">
                         <button class="btn-icon-link" v-on:click="goTo('Profile.search')">
                             <img src="../assets/icons/search.svg" alt="pictogramme recherche" aria-hidden="true">
-                            <span>Trouver un profil</span>
+                            <span :class="currentRouteName === 'Profile.search' ? 'border-b-2 border-main' : ''">Trouver un profil</span>
                         </button>
                     </li>
                         <template v-if="is_login">
                             <li v-if="user.role === 'admin'" class="flex justify-end my-2">
                                 <button class="btn-icon-link" v-on:click="goTo('Admin.dashboard')">
                                     <img src="../assets/icons/dashboard.svg" alt="pictogramme dashboard" aria-hidden="true">
-                                    <span class="text-main">Dashboard</span>
+                                    <span :class="[currentRouteName === 'Admin.dashboard' ? 'border-b-2 border-main' : '', 'text-main']">Dashboard</span>
                                 </button>
                             </li>
                             <li v-else class="flex justify-end my-2">
                                 <button class="flex items-center justify-center mx-4" v-on:click="goTo('Profile.me')">
                                     <img :src="imageProfile" alt="photo de profil"
                                          class="h-8 w-8 profile-img rounded-full border-solid border-main border-2"/>
-                                    <span class="username">{{ user.username }}</span>
+                                    <span :class="['username', currentRouteName === 'Profile.me' ? 'border-b-2 border-main' : '']">{{ user.username }}</span>
                                 </button>
                             </li>
                             <li class="flex justify-end my-2">
@@ -52,22 +52,25 @@
                             </li>
                         </template>
                         <template v-else>
-                            <li class="flex justify-end my-2">
+                            <li class="flex justify-end my-2'">
                                 <button class="btn-icon-link" v-on:click="goTo('Login')">
                                     <img src="../assets/icons/badge.svg" alt="pictogramme connexion" aria-hidden="true">
-                                    <span>Connexion</span>
+                                    <span :class="currentRouteName === 'Login' ? 'border-b-2 border-main' : ''">Connexion</span>
                                 </button>
                             </li>
                             <li class="flex justify-end my-2">
                                 <button class="btn-icon-link" v-on:click="goTo('Register')">
                                     <img src="../assets/icons/person.svg" alt="pictogramme inscription" aria-hidden="true">
-                                    <span>Inscription</span>
+                                    <span :class="currentRouteName === 'Register' ? 'border-b-2 border-main' : ''">Inscription</span>
                                 </button>
                             </li>
                         </template>
                 </ul>
             </div>
         </nav>
+        <div v-if="alert.status" class="fixed w-full flex justify-center z-50 pt-8">
+            <alert :msg='alert.content' :type="alert.type"></alert>
+        </div>
         <div class="relative">
             <div class="min-h-3/4 mx-auto bg-ym-black py-10 px-10">
                 <router-view />
@@ -84,11 +87,13 @@
 <script>
     import { mapState, mapActions } from 'vuex'
     import trackPlayer from '@/components/trackPlayer'
+    import alert from '@/components/Alert'
 
     export default {
         name: "Main",
         components: {
-            trackPlayer
+            trackPlayer,
+            alert
         },
         data () {
             return {
@@ -98,13 +103,17 @@
         computed: {
             ...mapState({
                 user: state => state.User.user,
-                is_login: state => state.User.is_login
+                is_login: state => state.User.is_login,
+                alert: state => state.Utils.snackbar
             }),
             imageProfile: function () {
                 return this.user.profilePicture ?
                     'data:'+ this.user.profilePicture.contentType +';base64,'+ this.user.profilePicture.picture
                     : require('../assets/images/default-profile.jpg')
             },
+            currentRouteName() {
+                return this.$route.name;
+            }
         },
         methods: {
             ...mapActions({

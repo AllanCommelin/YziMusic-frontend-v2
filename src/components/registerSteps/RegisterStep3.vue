@@ -43,6 +43,9 @@
                 </div>
             </div>
         </div>
+        <div class="w-full text-right mt-4">
+            <span class="text-white">Champs obligatoires*</span>
+        </div>
         <div class="mt-10 mb-16 w-full flex justify-center">
             <button class="btn-yzi" v-on:click="previous()">Retour</button>
             <button class="btn-yzi" v-on:click="next()">S'inscrire</button>
@@ -70,7 +73,6 @@
         computed: {
             ...mapState({
                 user: state => state.User.user,
-                error: state => state.User.errorLogin
             }),
         },
         created () {
@@ -100,8 +102,7 @@
                     soundcloudLink: this.soundcloudLink,
                 })
                 await this.registerUser()
-                //Todo: check return of register user if status !== 200, not increment, catch error
-                if (!this.error) this.$emit('increment')
+                this.$emit('increment')
             },
             previous() {
                 this.$emit('decrement')

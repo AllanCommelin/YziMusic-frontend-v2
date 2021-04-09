@@ -58,18 +58,12 @@
                     .then(res => {
                         this.mostRecentUsers = res.data.data
                     })
-                    .catch(() => {
-                        //Todo: catch error
-                    })
             },
             getMostLikedUsers: function () {
                 // Call api to get 10 most liked users
                 Vue.prototype.$http.get('http://localhost:6985/api/users/most/liked')
                     .then(res => {
                         this.mostLikedUsers = res.data.data
-                    })
-                    .catch(() => {
-                        //Todo: catch error
                     })
             }
         }

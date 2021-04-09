@@ -1,9 +1,6 @@
 <template>
     <div class="mx-auto max-w-md">
         <h1 class="text-3xl my-4 font-bold text-white font-black">Connexion</h1>
-        <div v-if="error" class="my-2">
-            <alert :msg='error' type="error"></alert>
-        </div>
         <div class="flex flex-wrap justify-between text-ym-grey">
             <div class="w-full text-left my-2">
                 <label class="label" for="email">Adresse mail</label>
@@ -25,24 +22,19 @@
 
 <script>
     import { mapState, mapActions } from 'vuex'
-    import Alert from '@/components/Alert'
 
     export default {
         name: "Login",
-        components: {
-            Alert
-        },
         data () {
             return {
-                email: null,
-                password: null,
+                email: '',
+                password: '',
             }
         },
         computed: {
             ...mapState({
                 user: state => state.User.user,
                 is_login: state => state.User.is_login,
-                error: state => state.User.errorLogin
             }),
             /* Check all field are filled */
             isFullFilled: function () {

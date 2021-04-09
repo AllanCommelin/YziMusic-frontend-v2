@@ -3,15 +3,15 @@
         <h2 class="text-3xl mb-6 font-bold text-white">Votre profil</h2>
         <div class="flex flex-wrap text-ym-grey text-left">
             <div class="w-full sm:pr-2 text-left my-2">
-                <label class="label" for="description">Description</label>
+                <label class="label" for="description">Description*</label>
                 <textarea class="input w-full" placeholder="Bio, projets, souhaits..." v-model="description" name="description" id="description" rows="8"></textarea>
             </div>
             <div class="sm:w-1/2 w-full sm:pr-2 text-left my-2">
-                <label class="label" for="location">Ville, Pays</label>
+                <label class="label" for="location">Ville, Pays*</label>
                 <input type="text" class="input" id="location" placeholder="Paris, France" v-model="location">
             </div>
             <div class="sm:w-1/2 w-full sm:pr-2 text-left my-2">
-                <label class="label" for="birthday">Date de naissance</label>
+                <label class="label" for="birthday">Date de naissance*</label>
                 <input type="date" class="input" id="birthday" placeholder="31/12/1990" v-model="birthday">
             </div>
            <div class="w-full sm:w-1/2">
@@ -36,6 +36,9 @@
                     </div>
                 </div>
             </div>
+            <div class="w-full text-right mt-4">
+                <span>Champs obligatoires*</span>
+            </div>
             <div class="mt-10 mb-16 w-full flex justify-center">
                 <button class="btn-yzi" v-on:click="previous()">Retour</button>
                 <button class="btn-yzi" :disabled="!isFullFilled" v-on:click="next()">Suivant</button>
@@ -55,8 +58,8 @@
             return {
                 profilesTypes: ProfilesTypes,
                 musicsTypes: MusicsType,
-                description: 'Test',
-                location: 'Paris, France',
+                description: '',
+                location: '',
                 birthday: '',
             }
         },

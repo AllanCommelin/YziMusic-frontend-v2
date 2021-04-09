@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import router from "@/router";
 
 const state = {
     user: {
@@ -27,7 +28,6 @@ const state = {
         role: ''
     },
     is_login: false,
-    errorLogin: false,
     pendingUser: false,
 }
 
@@ -47,12 +47,6 @@ const mutations = {
     },
     SET_USER_TRACK (state, payload) {
         state.user.tracks.push(payload)
-    },
-    SET_ERROR (state, error) {
-        state.errorLogin = error ? error : 'Une erreur est survenue'
-    },
-    INIT_ERROR (state) {
-        state.errorLogin = false
     },
     SET_IS_LOG_IN_TRUE (state) {
         state.is_login = true
@@ -84,7 +78,6 @@ const actions = {
                 store.commit('SET_USER_FIELD', res.data.data)
                 store.commit('SET_IS_LOG_IN_TRUE')
             })
-            .catch(() => {})
         store.commit('SET_PENDING_USER_FALSE')
     },
     logInUser: function (store, {email, password}) {
@@ -94,13 +87,9 @@ const actions = {
             Vue.prototype.$http.post('http://localhost:6985/auth/login', {
                 email: email,
                 password: password
-            })
-                .then(res => {
+            }).then(res => {
                     store.commit('SET_USER_FIELD', res.data.data.user)
                     store.commit('SET_IS_LOG_IN_TRUE')
-                })
-                .catch(() => {
-                    store.dispatch('errorUser')
                 })
             store.commit('SET_PENDING_USER_FALSE')
         }
@@ -112,24 +101,17 @@ const actions = {
     registerUser: function (store) {
         store.commit('INIT_ERROR')
         store.commit('SET_USER_FIELD', {creationDate: new Date()})
+        store.commit('SET_USER_FIELD', {likes: []})
+        store.commit('SET_USER_FIELD', {profilePicture: null})
+        store.commit('SET_USER_FIELD', {banished: false})
+        store.commit('SET_USER_FIELD', {role: 'user'})
         if (!store.state.pendingUser) {
-            Vue.prototype.$http.post('http://localhost:6985/auth/register', store.state.user)
-                .then(res => {
-                    //TODO: redirect to login screen with alert sucess
-                    console.log(`User ${res.data.user.username} is register . Go to login`)
-                })
-                .catch(() => {
-                    store.dispatch('errorUser')
-                })
+            Vue.prototype.$http.post('http://localhost:6985/auth/register', store.state.user).catch(() => {
+                router.push({name:'Home'})
+            })
             store.commit('SET_PENDING_USER_FALSE')
         }
     },
-    errorUser (store, error = null) {
-        store.commit('SET_ERROR', error)
-        setTimeout(function () {
-            store.commit('INIT_ERROR')
-        }, 300000)
-    }
 }
 
 const user = {
