@@ -263,7 +263,7 @@
         },
         methods: {
             likeUser: function () {
-                Vue.prototype.$http.put('http://localhost:6985/api/users/like', {userId: this.user._id})
+                Vue.prototype.$http.put(process.env.VUE_APP_API_URL+'/api/users/like', {userId: this.user._id})
                     .then(res => {
                         // update user
                         this.alreadyLike = true
@@ -271,7 +271,7 @@
                     })
             },
             unlikeUser: function () {
-                Vue.prototype.$http.put('http://localhost:6985/api/users/unlike', {userId: this.user._id})
+                Vue.prototype.$http.put(process.env.VUE_APP_API_URL+'/api/users/unlike', {userId: this.user._id})
                     .then(res => {
                         // update user
                         this.alreadyLike = false;
@@ -283,7 +283,7 @@
             },
             getUser: function () {
                 // Call api to get user by user Id
-                Vue.prototype.$http.get('http://localhost:6985/api/users/'+this.$route.params.id)
+                Vue.prototype.$http.get(process.env.VUE_APP_API_URL+'/api/users/'+this.$route.params.id)
                     .then(res => {
                         // Init user
                         this.user = res.data.data

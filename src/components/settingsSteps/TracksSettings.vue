@@ -87,7 +87,7 @@
             },
             deleteTrack: function (id) {
                 // Call api to delete track by id for auth user
-                Vue.prototype.$http.delete('http://localhost:6985/api/tracks/'+id)
+                Vue.prototype.$http.delete(process.env.VUE_APP_API_URL+'/api/tracks/'+id)
                     .then(() => {
                         // Delete track by id of local tracks
                         this.tracks.splice(this.tracks.findIndex(track => track._id === id), 1);

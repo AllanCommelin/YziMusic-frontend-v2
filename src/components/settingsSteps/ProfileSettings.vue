@@ -158,7 +158,7 @@
                     musicsTypes: this.formatCheckedData(this.musicsTypes),
                 }
                 if (this.password) updateData.password = this.password
-                Vue.prototype.$http.put('http://localhost:6985/api/users/' + this.user._id, updateData)
+                Vue.prototype.$http.put(process.env.VUE_APP_API_URL+'/api/users/' + this.user._id, updateData)
                     .then(res => {
                         console.log('Update success', res)
                         //todo: Display Alert success

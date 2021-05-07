@@ -54,14 +54,14 @@
         methods: {
             getMostRecentUsers: function () {
                 // Call api to get 10 most recent users
-                Vue.prototype.$http.get('http://localhost:6985/api/users/most/recent')
+                Vue.prototype.$http.get(process.env.VUE_APP_API_URL+'/api/users/most/recent')
                     .then(res => {
                         this.mostRecentUsers = res.data.data
                     })
             },
             getMostLikedUsers: function () {
                 // Call api to get 10 most liked users
-                Vue.prototype.$http.get('http://localhost:6985/api/users/most/liked')
+                Vue.prototype.$http.get(process.env.VUE_APP_API_URL+'/api/users/most/liked')
                     .then(res => {
                         this.mostLikedUsers = res.data.data
                     })

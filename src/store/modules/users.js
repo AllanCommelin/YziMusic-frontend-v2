@@ -73,7 +73,7 @@ const actions = {
     },
     loadUser: function (store) {
         store.commit('SET_PENDING_USER_TRUE')
-        Vue.prototype.$http.get('http://localhost:6985/auth/me')
+        Vue.prototype.$http.get(process.env.VUE_APP_API_URL+'/auth/me')
             .then(res => {
                 store.commit('SET_USER_FIELD', res.data.data)
                 store.commit('SET_IS_LOG_IN_TRUE')
@@ -84,7 +84,7 @@ const actions = {
         store.commit('INIT_ERROR')
         if(!store.state.pendingUser) {
             store.commit('SET_PENDING_USER_TRUE')
-            Vue.prototype.$http.post('http://localhost:6985/auth/login', {
+            Vue.prototype.$http.post(process.env.VUE_APP_API_URL+'/auth/login', {
                 email: email,
                 password: password
             }).then(res => {
@@ -106,7 +106,7 @@ const actions = {
         store.commit('SET_USER_FIELD', {banished: false})
         store.commit('SET_USER_FIELD', {role: 'user'})
         if (!store.state.pendingUser) {
-            Vue.prototype.$http.post('http://localhost:6985/auth/register', store.state.user).catch(() => {
+            Vue.prototype.$http.post(process.env.VUE_APP_API_URL+'/auth/register', store.state.user).catch(() => {
                 router.push({name:'Home'})
             })
             store.commit('SET_PENDING_USER_FALSE')

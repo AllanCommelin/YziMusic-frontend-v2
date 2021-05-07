@@ -104,7 +104,7 @@ const actions = {
         commit('RESET_PLAYING_TRACK')
     },
     setPlayingTrack: ({commit}, trackId) => {
-        Vue.prototype.$http.get('http://localhost:6985/api/tracks/'+trackId)
+        Vue.prototype.$http.get(process.env.VUE_APP_API_URL+'/api/tracks/'+trackId)
             .then(res => {
                 console.log('setplaying')
                 commit('SET_PLAYING_TRACK', res.data.data)

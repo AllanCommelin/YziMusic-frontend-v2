@@ -34,7 +34,7 @@ const errorHandler = (error) => {
 }
 
 const instance = axios.create({
-    baseUrl: 'http://localhost:6985',
+    baseUrl: process.env.VUE_APP_API_URL+'',
     withCredentials: true,
     headers: {'Content-Type': 'application/json'},
 })

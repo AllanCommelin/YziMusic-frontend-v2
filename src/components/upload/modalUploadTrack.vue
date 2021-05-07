@@ -81,7 +81,7 @@
                 formData.append("date", this.date);  // appending date
 
                 // sending file to the backend
-                Vue.prototype.$http.post('http://localhost:6985/api/tracks/upload/', formData)
+                Vue.prototype.$http.post(process.env.VUE_APP_API_URL+'/api/tracks/upload/', formData)
                     .then(res => {
                         this.$store.dispatch('User/setUserTrack', {_id: res.data.data._id, name: res.data.data.name})
                         // update list of tracks in store

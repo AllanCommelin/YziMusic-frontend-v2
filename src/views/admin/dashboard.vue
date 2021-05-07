@@ -149,7 +149,7 @@ export default {
     methods: {
         getUsers: function () {
             // Call api to get all users
-            Vue.prototype.$http.get('http://localhost:6985/api/users/')
+            Vue.prototype.$http.get(process.env.VUE_APP_API_URL+'/api/users/')
                 .then(res => {
                     this.users = res.data.data
                 })
@@ -159,7 +159,7 @@ export default {
         },
         getStats: function () {
             // Call api to get users stats
-            Vue.prototype.$http.get('http://localhost:6985/api/users/stats')
+            Vue.prototype.$http.get(process.env.VUE_APP_API_URL+'/api/users/stats')
                 .then(res => {
                     this.stats.users = res.data.data.users
                     this.stats.beatmakers = res.data.data.beatmakers
@@ -176,7 +176,7 @@ export default {
             this.modal.userToDelete = id
         },
         deleteUser: function () {
-            Vue.prototype.$http.delete('http://localhost:6985/api/users/'+ this.modal.userToDelete)
+            Vue.prototype.$http.delete(process.env.VUE_APP_API_URL+'/api/users/'+ this.modal.userToDelete)
                 .then(() => {
                     this.getStats()
                     this.getUsers()

@@ -68,7 +68,7 @@
                 const formData = new FormData();
                 formData.append("image", this.selectedImage);  // Appending file
                 // Sending file to the backend
-                Vue.prototype.$http.put('http://localhost:6985/api/users/upload/picture/'+this.user._id, formData)
+                Vue.prototype.$http.put(process.env.VUE_APP_API_URL+'/api/users/upload/picture/'+this.user._id, formData)
                     .then(() => {
                         //Todo : Manage response
                         this.closeModal();
