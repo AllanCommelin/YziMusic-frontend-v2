@@ -4,7 +4,7 @@ const defaultRoutes = [
     {
         path: '/',
         name: 'Home',
-        component: Home
+        component: Home,
     },
 ]
 

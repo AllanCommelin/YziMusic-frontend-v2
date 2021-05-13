@@ -159,8 +159,15 @@
                 }
                 if (this.password) updateData.password = this.password
                 Vue.prototype.$http.put(process.env.VUE_APP_API_URL+'/api/users/' + this.user._id, updateData)
-                    .then(res => {
-                        console.log('Update success', res)
+                    .then(() => {
+                        this.user.email = this.email
+                        this.user.firstname = this.firstname
+                        this.user.lastname = this.lastname
+                        this.user.description = this.description
+                        this.user.location = this.location
+                        this.user.birthday = this.birthday
+                        this.user.username = this.username
+                        this.user.password = this.password
                         //todo: Display Alert success
                     })
                     .catch(() => {

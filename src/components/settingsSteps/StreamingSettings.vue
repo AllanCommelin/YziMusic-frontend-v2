@@ -58,8 +58,11 @@
                 }
                 // TODO: Put this function in user's module
                 Vue.prototype.$http.put(process.env.VUE_APP_API_URL+'/api/users/' + this.user._id, updateData)
-                    .then(res => {
-                        console.log('Update success', res)
+                    .then(() => {
+                        this.user.spotifyLink = this.spotifyLink
+                        this.user.deezerLink = this.deezerLink
+                        this.user.appleMusicLink = this.appleMusicLink
+                        this.user.soundcloudLink = this.soundcloudLink
                         //todo: Display Alert success
                     })
                     .catch(() => {

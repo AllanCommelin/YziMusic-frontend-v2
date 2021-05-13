@@ -58,8 +58,11 @@ export default {
             }
             // TODO: Put this function in user's module
             Vue.prototype.$http.put(process.env.VUE_APP_API_URL+'/api/users/' + this.user._id, updateData)
-                .then(res => {
-                    console.log('Update success', res)
+                .then(() => {
+                    this.user.facebookLink = this.facebookLink
+                    this.user.twitterLink = this.twitterLink
+                    this.user.instagramLink = this.instagramLink
+                    this.user.youtubeLink = this.youtubeLink
                     //todo: Display Alert success
                 })
                 .catch(() => {

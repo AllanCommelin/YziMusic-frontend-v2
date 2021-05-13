@@ -16,6 +16,9 @@ const router = new VueRouter({
         {
             component: MainLayout,
             path: '',
+            meta: {
+                title: 'YziMusic',
+            },
             children: [
                 ...defaultRoutes,
                 ...authRoutes,
