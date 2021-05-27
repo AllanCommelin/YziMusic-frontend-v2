@@ -50,7 +50,7 @@ export default {
     methods: {
         researchUsers: function () {
             // Call api to search users
-            Vue.prototype.$http.get(`http://localhost:6985/api/users/search?search=${this.search}`)
+            Vue.prototype.$http.get(`${process.env.VUE_APP_API_URL}/api/users/search?search=${this.search}`)
                 .then(res => {
                     this.searchUsers = res.data.data
                 })
