@@ -1,5 +1,6 @@
 <template>
     <div v-if="playingTrack" class="fixed bottom-0 left-0 right-0 flex-col items-center px-4 py-2 bg-main z-50">
+        <div class="absolute top-0 right-0 p-1 cursor-pointer text-white" v-on:click="toReset">x</div>
         <div class="flex justify-center items-center text-white text-sm">
             <span class="font-bold">{{ playingTrack.track.name }} </span> - {{ playingTrack.track.user.username }}
         </div>
@@ -65,6 +66,10 @@ export default {
         }),
     },
     methods: {
+        toReset: function () {
+            this.toPause()
+            this.$store.dispatch('Tracks/resetPlayingTrack')
+        },
         toPause: function () {
             this.$store.dispatch('Tracks/setPause')
         },
