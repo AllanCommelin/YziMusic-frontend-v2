@@ -133,25 +133,25 @@
                         <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Réseaux sociaux</h2>
                         <div class="flex flex-wrap justify-between py-4">
                             <div class="text-center px-4">
-                                <a :href="user.facebookLink ? user.facebookLink : '#'" target="_blank" class="text-center">
+                                <a :href="user.facebookLink ? user.facebookLink : '#'" :target="user.facebookLink ? '_blank' : '_self'" class="text-center">
                                     <img src="../../assets/icons/facebook.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.facebookLink}]" alt="logo facebook">
                                     <span :class="user.facebookLink ? 'text-white font-bold' : 'text-gray-700'">Facebook</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
-                                <a :href="user.twitterLink ? user.twitterLink : '#'" target="_blank" class="text-center">
+                                <a :href="user.twitterLink ? user.twitterLink : '#'" :target="user.twitterLink ? '_blank' : '_self'" class="text-center">
                                     <img src="../../assets/icons/twitter.svg" :class="['icons-social mx-auto my-2', {'grayscale': !user.twitterLink}]" alt="logo twitter">
                                     <span :class="user.twitterLink ? 'text-white font-bold' : 'text-gray-700'">Twitter</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
-                                <a :href="user.instagramLink ? user.instagramLink : '#'" target="_blank" class="text-center">
+                                <a :href="user.instagramLink ? user.instagramLink : '#'" :target="user.instagramLink ? '_blank' : '_self'" class="text-center">
                                     <img src="../../assets/icons/instagram.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.instagramLink}]" alt="logo instagram">
                                     <span :class="user.instagramLink ? 'text-white font-bold' : 'text-gray-700'">Instagram</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
-                                <a :href="user.youtubeLink ? user.youtubeLink : '#'" target="_blank" class="text-center">
+                                <a :href="user.youtubeLink ? user.youtubeLink : '#'" :target="user.youtubeLink ? '_blank' : '_self'" class="text-center">
                                     <img src="../../assets/icons/youtube.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.youtubeLink}]" alt="logo youtube">
                                     <span :class="user.youtubeLink ? 'text-white font-bold' : 'text-gray-700'">YouTube</span>
                                 </a>
@@ -160,25 +160,25 @@
                         <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Streaming</h2>
                         <div class="flex flex-wrap justify-between py-4">
                             <div class="text-center px-4">
-                                <a :href="user.spotifyLink ? user.spotifyLink : '#'" target="_blank" class="text-center">
+                                <a :href="user.spotifyLink ? user.spotifyLink : '#'" :target="user.spotifyLink ? '_blank' : '_self'" class="text-center">
                                     <img src="../../assets/icons/spotify.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.spotifyLink}]" alt="logo spotify">
                                     <span :class="user.spotifyLink ? 'text-white font-bold' : 'text-gray-700'">Spotify</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
-                                <a :href="user.appleMusicLink ? user.appleMusicLink : '#'" target="_blank" class="text-center">
+                                <a :href="user.appleMusicLink ? user.appleMusicLink : '#'" :target="user.appleMusicLink ? '_blank' : '_self'" class="text-center">
                                     <img src="../../assets/icons/applemusic.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.appleMusicLink}]" alt="logo applemusic">
                                     <span :class="user.appleMusicLink ? 'text-white font-bold' : 'text-gray-700'">Apple Music</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
-                                <a :href="user.deezerLink ? user.deezerLink : '#'" target="_blank" class="text-center">
+                                <a :href="user.deezerLink ? user.deezerLink : '#'" :target="user.deezerLink ? '_blank' : '_self'" class="text-center">
                                     <img src="../../assets/icons/deezer.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.deezerLink}]" alt="logo deezer">
                                     <span :class="user.deezerLink ? 'text-white font-bold' : 'text-gray-700'">Deezer</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
-                                <a :href="user.soundcloudLink ? user.soundcloudLink : '#'" target="_blank" class="text-center">
+                                <a :href="user.soundcloudLink ? user.soundcloudLink : '#'" :target="user.soundcloudLink ? '_blank' : '_self'" class="text-center">
                                     <img src="../../assets/icons/soundcloud.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.soundcloudLink}]" alt="logo soundcloud">
                                     <span :class="user.soundcloudLink ? 'text-white font-bold' : 'text-gray-700'">SoundCloud</span>
                                 </a>
