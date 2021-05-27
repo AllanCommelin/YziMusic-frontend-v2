@@ -88,8 +88,8 @@
                             <button v-else v-on:click="displayEmail" class="uppercase text-sm italic font-bold w-auto btn-primary transition duration-300 ease-in-out focus:outline-none bg-main hover:bg-main text-white font-normal py-2 px-4 rounded">Voir</button>
                         </div>
                     </div>
+                </div>
             </div>
-        </div>
         </div>
         <div class="profile-content w-full lg:w-2/3 lg:pl-10">
             <div class="w-10/12 max-w-3xl mx-auto">
@@ -103,22 +103,22 @@
                         <ul>
                             <template v-if="user.tracks && user.tracks.length > 0">
                                 <li v-for="track in user.tracks" v-bind:key="track._id" class="flex w-full max-w-lg border-1 border-main-light py-2 px-4 rounded-lg my-2">
-                                <div class="flex flex-col w-3/4">
-                                    <span class="uppercase font-black text-main-light">{{ track.name }}</span>
-                                    <span class="font-medium italic text-white text-xs">{{ user.username }}</span>
-                                </div>
-                                <div class="flex w-1/4 items-center justify-end">
-                                    <button v-if="play && playingTrack.track._id === track._id" @click="pauseTrack" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
-                                        <i class="fas fa-pause text-xs"></i>
-                                    </button>
-                                    <button v-else-if="!play && playingTrack && playingTrack.track._id === track._id" @click="playTrack()" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
-                                        <i class="fas fa-play text-xs"></i>
-                                    </button>
-                                    <button v-else @click="playTrack(track._id)" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
-                                        <i class="fas fa-play text-xs"></i>
-                                    </button>
-                                </div>
-                            </li>
+                                    <div class="flex flex-col w-3/4">
+                                        <span class="uppercase font-black text-main-light">{{ track.name }}</span>
+                                        <span class="font-medium italic text-white text-xs">{{ user.username }}</span>
+                                    </div>
+                                    <div class="flex w-1/4 items-center justify-end">
+                                        <button v-if="play && playingTrack.track._id === track._id" @click="pauseTrack" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
+                                            <i class="fas fa-pause text-xs"></i>
+                                        </button>
+                                        <button v-else-if="!play && playingTrack && playingTrack.track._id === track._id" @click="playTrack()" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
+                                            <i class="fas fa-play text-xs"></i>
+                                        </button>
+                                        <button v-else @click="playTrack(track._id)" class="border-1 border-main-light hover:bg-main-light hover:text-white text-main-light font-bold rounded-full flex justify-center items-center h-8 w-8">
+                                            <i class="fas fa-play text-xs"></i>
+                                        </button>
+                                    </div>
+                                </li>
                             </template>
                             <template v-else>
                                 <li class="text-white">
@@ -133,25 +133,25 @@
                         <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Réseaux sociaux</h2>
                         <div class="flex flex-wrap justify-between py-4">
                             <div class="text-center px-4">
-                                <a :href="user.facebookLink ? user.facebookLink : '#'" class="text-center">
+                                <a :href="user.facebookLink ? user.facebookLink : '#'" target="_blank" class="text-center">
                                     <img src="../../assets/icons/facebook.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.facebookLink}]" alt="logo facebook">
                                     <span :class="user.facebookLink ? 'text-white font-bold' : 'text-gray-700'">Facebook</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
-                                <a :href="user.twitterLink ? user.twitterLink : '#'" class="text-center">
+                                <a :href="user.twitterLink ? user.twitterLink : '#'" target="_blank" class="text-center">
                                     <img src="../../assets/icons/twitter.svg" :class="['icons-social mx-auto my-2', {'grayscale': !user.twitterLink}]" alt="logo twitter">
                                     <span :class="user.twitterLink ? 'text-white font-bold' : 'text-gray-700'">Twitter</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
-                                <a :href="user.instagramLink ? user.instagramLink : '#'" class="text-center">
+                                <a :href="user.instagramLink ? user.instagramLink : '#'" target="_blank" class="text-center">
                                     <img src="../../assets/icons/instagram.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.instagramLink}]" alt="logo instagram">
                                     <span :class="user.instagramLink ? 'text-white font-bold' : 'text-gray-700'">Instagram</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
-                                <a :href="user.youtubeLink ? user.youtubeLink : '#'" class="text-center">
+                                <a :href="user.youtubeLink ? user.youtubeLink : '#'" target="_blank" class="text-center">
                                     <img src="../../assets/icons/youtube.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.youtubeLink}]" alt="logo youtube">
                                     <span :class="user.youtubeLink ? 'text-white font-bold' : 'text-gray-700'">YouTube</span>
                                 </a>
@@ -160,25 +160,25 @@
                         <h2 class="relative text-left font-black uppercase italic text-2xl shadow-title title--outline mb-4">Streaming</h2>
                         <div class="flex flex-wrap justify-between py-4">
                             <div class="text-center px-4">
-                                <a :href="user.spotifyLink ? user.spotifyLink : '#'" class="text-center">
+                                <a :href="user.spotifyLink ? user.spotifyLink : '#'" target="_blank" class="text-center">
                                     <img src="../../assets/icons/spotify.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.spotifyLink}]" alt="logo spotify">
                                     <span :class="user.spotifyLink ? 'text-white font-bold' : 'text-gray-700'">Spotify</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
-                                <a :href="user.appleMusicLink ? user.appleMusicLink : '#'" class="text-center">
+                                <a :href="user.appleMusicLink ? user.appleMusicLink : '#'" target="_blank" class="text-center">
                                     <img src="../../assets/icons/applemusic.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.appleMusicLink}]" alt="logo applemusic">
                                     <span :class="user.appleMusicLink ? 'text-white font-bold' : 'text-gray-700'">Apple Music</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
-                                <a :href="user.deezerLink ? user.deezerLink : '#'" class="text-center">
+                                <a :href="user.deezerLink ? user.deezerLink : '#'" target="_blank" class="text-center">
                                     <img src="../../assets/icons/deezer.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.deezerLink}]" alt="logo deezer">
                                     <span :class="user.deezerLink ? 'text-white font-bold' : 'text-gray-700'">Deezer</span>
                                 </a>
                             </div>
                             <div class="text-center px-4">
-                                <a :href="user.soundcloudLink ? user.soundcloudLink : '#'" class="text-center">
+                                <a :href="user.soundcloudLink ? user.soundcloudLink : '#'" target="_blank" class="text-center">
                                     <img src="../../assets/icons/soundcloud.png" :class="['icons-social mx-auto my-2', {'grayscale': !user.soundcloudLink}]" alt="logo soundcloud">
                                     <span :class="user.soundcloudLink ? 'text-white font-bold' : 'text-gray-700'">SoundCloud</span>
                                 </a>
@@ -193,10 +193,10 @@
 
 <script>
     import Vue from 'vue'
-    import moment from 'moment'
-    import { mapState } from 'vuex'
-    import ProfilesTypes from '../../store/constants/ProfilesTypes'
-    import MusicsType from '../../store/constants/MusicsTypes'
+import moment from 'moment'
+import { mapState } from 'vuex'
+import ProfilesTypes from '../../store/constants/ProfilesTypes'
+import MusicsType from '../../store/constants/MusicsTypes'
 
     export default {
         name: "ShowProfile",
