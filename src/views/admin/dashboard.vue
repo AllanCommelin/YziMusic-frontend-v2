@@ -39,7 +39,7 @@
                             <tr v-for="user in users" v-bind:key="user._id" class="border-b border-gray-200 bg-ym-lighter-black text-white hover:bg-ym-light-black">
                                 <td class="py-3 px-6 text-left whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <img class="w-12 h-12 rounded-full" :src="user.profilePicture ? 'data:'+ user.profilePicture.contentType +';base64,'+ user.profilePicture.picture : require('../../assets/images/default-profile.jpg')" alt="photo de profile"/>
+                                        <img class="w-12 h-12 rounded-full object-cover" :src="user.profilePicture ? 'data:'+ user.profilePicture.contentType +';base64,'+ user.profilePicture.picture : require('../../assets/images/default-profile.jpg')" alt="photo de profile"/>
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 font-medium text-left">
